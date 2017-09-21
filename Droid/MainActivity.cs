@@ -21,6 +21,7 @@ namespace Libmemo.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            global::FFImageLoading.Forms.Droid.CachedImageRenderer.Init();
 
             LoadApplication(new App());
         }

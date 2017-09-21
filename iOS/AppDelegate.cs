@@ -13,6 +13,7 @@ namespace Libmemo.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            global::FFImageLoading.Forms.Touch.CachedImageRenderer.Init();
 
             LoadApplication(new App());
 
