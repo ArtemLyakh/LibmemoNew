@@ -2,7 +2,7 @@
 <MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     xmlns:local="clr-namespace:Libmemo"
-    xmlns:sp="clr-namespace:Libmemo.Pages"
+    xmlns:sp="clr-namespace:Libmemo.Pages.Map"
 
     x:Class="Libmemo.Pages.Core.Main"
     MasterBehavior="Popover"
@@ -13,7 +13,7 @@
     <MasterDetailPage.Detail>
         <NavigationPage>
             <x:Arguments>
-                <local:LibmemoPage />
+                <sp:Filter />
             </x:Arguments>
         </NavigationPage>
     </MasterDetailPage.Detail>

@@ -32,6 +32,9 @@
     <EmbeddedResource Include="Pages\Core\Main.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Map\Filter.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -44,10 +47,35 @@
     <Compile Include="Pages\Core\Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Map\Filter.xaml.cs">
+      <DependentUpon>Filter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\NullableDateConverter.cs" />
+    <Compile Include="Helpers\BaseViewModel.cs" />
+    <Compile Include="Helpers\ToastNotificator.cs" />
+    <Compile Include="Dependencies\IToastNotification.cs" />
+    <Compile Include="Helpers\Settings.cs" />
+    <Compile Include="Helpers\Auth\AuthCredentials.cs" />
+    <Compile Include="Helpers\Auth\AuthHelper.cs" />
+    <Compile Include="Helpers\Auth\AuthInfo.cs" />
+    <Compile Include="Helpers\Auth\AuthJson.cs" />
+    <Compile Include="Models\Persons.cs" />
+    <Compile Include="Helpers\Json.cs" />
+    <Compile Include="Models\PersonType.cs" />
+    <Compile Include="Helpers\WebClient.cs" />
+    <Compile Include="CustomElements\FixedButton\FixedButton.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\" />
     <Folder Include="Pages\Core\" />
+    <Folder Include="Pages\Map\" />
+    <Folder Include="CustomElements\" />
+    <Folder Include="Converters\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="Dependencies\" />
+    <Folder Include="Helpers\Auth\" />
+    <Folder Include="Models\" />
+    <Folder Include="CustomElements\FixedButton\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">
@@ -70,6 +98,15 @@
     </Reference>
     <Reference Include="FFImageLoading.Transformations">
       <HintPath>..\packages\Xamarin.FFImageLoading.Transformations.2.2.13\lib\portable-net45+win8+wpa81+wp8+netstandard1.0\FFImageLoading.Transformations.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Settings.Abstractions">
+      <HintPath>..\packages\Xam.Plugins.Settings.3.0.1\lib\netstandard1.0\Plugin.Settings.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Settings">
+      <HintPath>..\packages\Xam.Plugins.Settings.3.0.1\lib\netstandard1.0\Plugin.Settings.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\portable-net45+win8+wp8+wpa81\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
