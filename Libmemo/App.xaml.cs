@@ -8,7 +8,7 @@ namespace Libmemo
         {
             InitializeComponent();
 
-            MainPage = new LibmemoPage();
+            MainPage = new Pages.Core.Main();
         }
 
         protected override void OnStart()
