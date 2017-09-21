@@ -58,8 +58,7 @@ namespace Libmemo.Pages.Core
                 {
                     Text = "Авторизация",
                     Image = ImageSource.FromFile("menu_login"),
-                    //Action = () => App.GlobalPage.PushRoot(new Pages.Login())
-                    Action = () => throw new NotImplementedException()
+                    Action = () => App.GlobalPage.PushRoot(new Pages.Auth.Login())
 				};
 				yield return new MenuItem
 				{
