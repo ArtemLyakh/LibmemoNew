@@ -3,12 +3,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     xmlns:local="clr-namespace:Libmemo"
     xmlns:sp="clr-namespace:Libmemo.Pages.Map"
-
+    xmlns:mp="clr-namespace:Libmemo.Pages.Core"
     x:Class="Libmemo.Pages.Core.Main"
     MasterBehavior="Popover"
     >
     <MasterDetailPage.Master>
-        <local:LibmemoPage />
+        <mp:Menu x:Name="menuPage" />
     </MasterDetailPage.Master>
     <MasterDetailPage.Detail>
         <NavigationPage>

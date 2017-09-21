@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:ffi="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" x:Class="Libmemo.Pages.Core.Menu" Title="Меню" Padding="0,24,0,0" BackgroundColor="Transparent">
+    <ContentPage.Content>
+        <Grid x:Name="menuGrid" RowSpacing="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackLayout Grid.Column="0" Grid.Row="0" HeightRequest="50" Orientation="Horizontal" BackgroundColor="#333333" Padding="5" Spacing="5">
+                <ffi:CachedImage Source="back.png" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" WidthRequest="40" HeightRequest="40" Aspect="AspectFill">
+                    <ffi:CachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding BackCommand}" />
+                    </ffi:CachedImage.GestureRecognizers>
+                </ffi:CachedImage>
+                <ffi:CachedImage Source="user.png" VerticalOptions="CenterAndExpand" HorizontalOptions="End" WidthRequest="40" HeightRequest="40" Aspect="AspectFill" IsVisible="{Binding IsLogged}">
+                    <ffi:CachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding LKCommand}" />
+                    </ffi:CachedImage.GestureRecognizers>
+                    <ffi:CachedImage.Triggers>
+                        <DataTrigger TargetType="ffi:CachedImage" Binding="{Binding IsAdmin}" Value="True">
+                            <Setter Property="Source" Value="admin.png" />
+                        </DataTrigger>
+                    </ffi:CachedImage.Triggers>
+                </ffi:CachedImage>
+            </StackLayout>
+            <ListView x:Name="listView" BackgroundColor="White" Grid.Row="1" Grid.Column="0" HasUnevenRows="True" VerticalOptions="FillAndExpand" SeparatorVisibility="Default" ItemsSource="{Binding MenuList}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <StackLayout Orientation="Horizontal" Padding="10,5" Spacing="0" HeightRequest="70" VerticalOptions="FillAndExpand">
+                                    <ffi:CachedImage Source="{Binding Image}" HeightRequest="60" WidthRequest="60" Aspect="AspectFill" VerticalOptions="CenterAndExpand" HorizontalOptions="Start" />
+                                    <Label Text="{Binding Text}" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" FontSize="20" TextColor="Black" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Margin="20,0,0,0" />
+                                </StackLayout>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

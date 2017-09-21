@@ -24,14 +24,12 @@ namespace Libmemo
 
 		public static void SetShowMenu(bool show = true)
 		{
-            throw new NotImplementedException();
-			//(Application.Current.MainPage as MainPage).IsPresented = show;
+            (Application.Current.MainPage as Pages.Core.Main).IsPresented = show;
 		}
 
 		public static void InitMenu()
 		{
-            throw new NotImplementedException();
-			//((Application.Current.MainPage as MainPage).Master as MenuPage).SetMenuPage();
+            ((Application.Current.MainPage as Pages.Core.Main).Master as Pages.Core.Menu).SetMenuPage();
 		}
 
 		public static Pages.Core.Main GlobalPage => (Pages.Core.Main)Application.Current.MainPage;

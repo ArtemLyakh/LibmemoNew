@@ -35,6 +35,9 @@
     <EmbeddedResource Include="Pages\Map\Filter.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Core\Menu.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -64,6 +67,9 @@
     <Compile Include="Models\PersonType.cs" />
     <Compile Include="Helpers\WebClient.cs" />
     <Compile Include="CustomElements\FixedButton\FixedButton.cs" />
+    <Compile Include="Pages\Core\Menu.xaml.cs">
+      <DependentUpon>Menu.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\" />

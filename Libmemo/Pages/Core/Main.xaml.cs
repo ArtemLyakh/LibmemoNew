@@ -10,6 +10,8 @@ namespace Libmemo.Pages.Core
         public Main()
         {
             InitializeComponent();
+
+            (Master as Menu).ListView.ItemSelected += OnMenuItemSelected;
         }
 
 		private NavigationPage NavStack
@@ -24,6 +26,18 @@ namespace Libmemo.Pages.Core
 		{
 			await PopToRootPage();
 			await NavStack.Navigation.PushAsync(page);
+		}
+
+		private async void OnMenuItemSelected(object sender, SelectedItemChangedEventArgs e)
+		{
+            var item = e.SelectedItem as Menu.MenuItem;
+			if (item != null)
+			{
+                (Master as Menu).ListView.SelectedItem = null;
+
+				await item.Action?.Invoke();
+				IsPresented = false;
+			}
 		}
     }
 }
