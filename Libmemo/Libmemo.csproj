@@ -55,6 +55,12 @@
     <EmbeddedResource Include="Pages\Detail.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Tree\TreeList.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Tree\ViewTree.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -106,6 +112,12 @@
     <Compile Include="Behaviors\EntryChangedBehavior.cs" />
     <Compile Include="Pages\Detail.xaml.cs">
       <DependentUpon>Detail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Tree\TreeList.xaml.cs">
+      <DependentUpon>TreeList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Tree\ViewTree.xaml.cs">
+      <DependentUpon>ViewTree.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
