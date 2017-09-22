@@ -61,6 +61,12 @@
     <EmbeddedResource Include="Pages\Tree\ViewTree.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Relatives\Relatives.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Relatives\AddRelative.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -119,6 +125,15 @@
     <Compile Include="Pages\Tree\ViewTree.xaml.cs">
       <DependentUpon>ViewTree.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Relatives\Relatives.xaml.cs">
+      <DependentUpon>Relatives.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Relatives\AddRelative.xaml.cs">
+      <DependentUpon>AddRelative.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\NullableDoubleConverter.cs" />
+    <Compile Include="Converters\IsPropertyNullConverter.cs" />
+    <Compile Include="Converters\IsPinSpeakableConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\" />
@@ -136,6 +151,7 @@
     <Folder Include="Pages\Tree\" />
     <Folder Include="CustomElements\CustomListView\" />
     <Folder Include="Behaviors\" />
+    <Folder Include="Pages\Relatives\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">

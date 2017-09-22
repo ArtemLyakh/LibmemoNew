@@ -105,8 +105,7 @@ namespace Libmemo.Pages.Core
 					{
 						Text = "Родственники",
 						Image = ImageSource.FromFile("menu_rel"),
-						//Action = () => App.GlobalPage.PushRoot(new Pages.Relatives())
-                        Action = () => throw new NotImplementedException()
+                        Action = () => App.GlobalPage.PushRoot(new Pages.Relatives.Relatives())
 					};
 					yield return new MenuItem
 					{
