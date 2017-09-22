@@ -133,6 +133,12 @@
     <Reference Include="Xamarin.Forms.CarouselView">
       <HintPath>..\packages\Xamarin.Forms.CarouselView.2.3.0-pre2\lib\Xamarin.iOS10\Xamarin.Forms.CarouselView.dll</HintPath>
     </Reference>
+    <Reference Include="Plugin.FilePicker">
+      <HintPath>..\libs\FilePicker\iOS\Plugin.FilePicker.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.FilePicker.Abstractions">
+      <HintPath>..\libs\FilePicker\iOS\Plugin.FilePicker.Abstractions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Libmemo\Libmemo.csproj">

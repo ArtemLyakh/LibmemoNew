@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Plugin.FilePicker</name>
+    </assembly>
+    <members>
+        <member name="T:Plugin.FilePicker.CrossFilePicker">
+            <summary>
+            Cross platform FilePicker implemenations
+            </summary>
+        </member>
+        <member name="P:Plugin.FilePicker.CrossFilePicker.Current">
+            <summary>
+            Current settings to use
+            </summary>
+        </member>
+        <member name="T:Plugin.FilePicker.FilePickerImplementation">
+            <summary>
+            Implementation for FilePicker
+            </summary>
+        </member>
+        <member name="P:Plugin.FilePicker.FilePickerImplementation.Handler">
+            <summary>
+            Event which is invoked when a file was picked
+            </summary>
+        </member>
+        <member name="M:Plugin.FilePicker.FilePickerImplementation.DocumentPicker_WasCancelled(System.Object,System.EventArgs)">
+            <summary>
+            Handles when the file picker was cancelled. Either in the
+            popup menu or later on.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Plugin.FilePicker.FilePickerImplementation.PickFile">
+            <summary>
+            Lets the user pick a file with the systems default file picker
+            For iOS iCloud drive needs to be configured
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

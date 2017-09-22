@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Plugin.FilePicker.Abstractions</name>
+    </assembly>
+    <members>
+        <member name="T:Plugin.FilePicker.Abstractions.IFilePicker">
+            <summary>
+            Interface for FilePicker
+            </summary>
+        </member>
+        <member name="T:Plugin.FilePicker.Abstractions.FileData">
+            <summary>
+            The object used as a wrapper for the file picked by the user
+            </summary>
+        </member>
+        <member name="P:Plugin.FilePicker.Abstractions.FileData.FileName">
+            <summary>
+            Filename of the picked file
+            </summary>
+        </member>
+        <member name="P:Plugin.FilePicker.Abstractions.FileData.FilePath">
+            <summary>
+            Full filepath of the picked file
+            </summary>
+        </member>
+        <member name="M:Plugin.FilePicker.Abstractions.FileData.GetStream">
+            <summary>
+            Get stream if available
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

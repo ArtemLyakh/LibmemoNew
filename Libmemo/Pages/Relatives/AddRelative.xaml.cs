@@ -390,33 +390,44 @@ namespace Libmemo.Pages.Relatives
 				SchemeStream?.Dispose();
 				SchemeStream = null;
 			}
-			public ICommand SelectSchemeCommand => new Command(async () => {
-                throw new NotImplementedException();
-				//var file = await Plugin.FilePicker.CrossFilePicker.Current.PickFile();
-				//if (file == null) return;
+            public ICommand SelectSchemeCommand => new Command(async () => {
+                await NewSelectSchemeCommand();
+            	//var file = await Plugin.FilePicker.CrossFilePicker.Current.PickFile();
+            	//if (file == null) return;
 
-				//var fileName = !string.IsNullOrWhiteSpace(file.FileName)
-				//					  ? file.FileName
-				//					  : "Файл";
+            	//var fileName = !string.IsNullOrWhiteSpace(file.FileName)
+            	//					  ? file.FileName
+            	//					  : "Файл";
 
-				//Stream stream;
-				//try
-				//{
-				//	stream = DependencyService.Get<IFileStreamPicker>().GetStream(file.FilePath);
-				//}
-				//catch
-				//{
-				//	App.ToastNotificator.Show("Ошибка выбора файла");
-				//	return;
-				//}
+            	//Stream stream;
+            	//try
+            	//{
+            	//	stream = DependencyService.Get<IFileStreamPicker>().GetStream(file.FilePath);
+            	//}
+            	//catch
+            	//{
+            	//	App.ToastNotificator.Show("Ошибка выбора файла");
+            	//	return;
+            	//}
 
-				//if (stream.Length > 2 * 1024 * 1024)
-				//{
-				//	App.ToastNotificator.Show($"Размер файла не должен превышать 2 МБ ({stream.Length / 1024 / 1024} МБ)");
-				//	return;
-				//}
-				//SetScheme(fileName, stream);
-			});
+            	//if (stream.Length > 2 * 1024 * 1024)
+            	//{
+            	//	App.ToastNotificator.Show($"Размер файла не должен превышать 2 МБ ({stream.Length / 1024 / 1024} МБ)");
+            	//	return;
+            	//}
+            	//SetScheme(fileName, stream);
+            });
+
+
+            private async System.Threading.Tasks.Task NewSelectSchemeCommand() {
+                var qqq = await Plugin.FilePicker.CrossFilePicker.Current.PickFile();
+
+                var st = qqq.GetStream();
+
+                qqq.Dispose();
+
+                var q = 1;
+            }
 
 			private string _section;
 			public string Section
