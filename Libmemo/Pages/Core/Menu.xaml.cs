@@ -64,8 +64,7 @@ namespace Libmemo.Pages.Core
 				{
 					Text = "Регистрация",
 					Image = ImageSource.FromFile("menu_reg"),
-					//Action = () => App.GlobalPage.PushRoot(new Pages.Register())
-                    Action = () => throw new NotImplementedException()
+                    Action = () => App.GlobalPage.PushRoot(new Pages.Auth.Register())
 				};
 			}
 			else
@@ -130,9 +129,8 @@ namespace Libmemo.Pages.Core
 		public ICommand BackCommand => new Command(() => App.SetShowMenu(false));
 
 		public ICommand LKCommand => new Command(async () => {
-            throw new NotImplementedException();
 			if (!AuthHelper.IsLogged || AuthHelper.IsAdmin) return;
-			//await App.GlobalPage.PushRoot(new Pages.Account());
+            await App.GlobalPage.PushRoot(new Pages.Account.Account());
 			App.SetShowMenu(false);
 		});
 
