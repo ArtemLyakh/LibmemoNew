@@ -46,6 +46,15 @@
     <EmbeddedResource Include="Pages\Account\Account.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Tree\Tree.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\ServerSearch.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Detail.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -85,6 +94,19 @@
       <DependentUpon>Account.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dependencies\IFileStreamPicker.cs" />
+    <Compile Include="Pages\Tree\Tree.xaml.cs">
+      <DependentUpon>Tree.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\Tree.cs" />
+    <Compile Include="Pages\ServerSearch.xaml.cs">
+      <DependentUpon>ServerSearch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomElements\CustomListView\ListView.cs" />
+    <Compile Include="Behaviors\EntrySelectedBehavior.cs" />
+    <Compile Include="Behaviors\EntryChangedBehavior.cs" />
+    <Compile Include="Pages\Detail.xaml.cs">
+      <DependentUpon>Detail.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\" />
@@ -99,6 +121,9 @@
     <Folder Include="CustomElements\FixedButton\" />
     <Folder Include="Pages\Auth\" />
     <Folder Include="Pages\Account\" />
+    <Folder Include="Pages\Tree\" />
+    <Folder Include="CustomElements\CustomListView\" />
+    <Folder Include="Behaviors\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">
@@ -142,6 +167,9 @@
     </Reference>
     <Reference Include="System.ValueTuple">
       <HintPath>..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.CarouselView">
+      <HintPath>..\packages\Xamarin.Forms.CarouselView.2.3.0-pre2\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.CarouselView.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

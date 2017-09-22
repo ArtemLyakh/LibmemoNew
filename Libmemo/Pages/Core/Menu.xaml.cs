@@ -112,8 +112,7 @@ namespace Libmemo.Pages.Core
 					{
 						Text = "Древо",
 						Image = ImageSource.FromFile("menu_tree"),
-						//Action = () => App.GlobalPage.PushRoot(new Pages.Tree())
-                        Action = () => throw new NotImplementedException()
+                        Action = () => App.GlobalPage.PushRoot(new Pages.Tree.Tree())
 					};
 				}
 
