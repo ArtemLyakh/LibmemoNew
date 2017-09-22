@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Libmemo" xmlns:ffi="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" x:Class="Libmemo.Pages.Auth.Login" NavigationPage.HasNavigationBar="False">
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness" iOS="0, 20, 0, 0" />
+    </ContentPage.Padding>
     <ContentPage.Content>
         <RelativeLayout>
             <Grid RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=0,Constant=0}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=0,Constant=0}" RowSpacing="0">
@@ -28,14 +31,14 @@
                             <Label Text="Пароль:" FontSize="Medium" HorizontalOptions="CenterAndExpand" />
                             <Entry Text="{Binding Password}" HorizontalOptions="FillAndExpand" IsPassword="True" />
                         </StackLayout>
-                        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Spacing="10">
-                            <local:FixedButton Text="Войти" Command="{Binding LoginCommand}" BackgroundColor="#333333" TextColor="White" />
-                            <local:FixedButton Text="Регистрация" Command="{Binding RegisterCommand}" BackgroundColor="#333333" TextColor="White" />
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Spacing="10">
+                            <local:FixedButton Text="Войти" Command="{Binding LoginCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#333333" TextColor="White" />
+                            <local:FixedButton Text="Регистрация" Command="{Binding RegisterCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#333333" TextColor="White" />
                         </StackLayout>
                     </StackLayout>
                 </ScrollView>
             </Grid>
-            <StackLayout RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=0,Constant=0}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=0,Constant=0}" BackgroundColor="#80000000" IsVisible="{Binding IsLoading}">
+            <StackLayout IsVisible="{Binding IsLoading}" RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=0,Constant=0}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=0,Constant=0}" BackgroundColor="#80000000">
                 <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="White" Orientation="Horizontal" Padding="15">
                     <ActivityIndicator IsRunning="true" Color="Black" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" Margin="0,0,20,0" />
                     <Label TextColor="Black" HorizontalOptions="End" VerticalOptions="CenterAndExpand" FontSize="Medium" Text="{Binding LoadingString}" />

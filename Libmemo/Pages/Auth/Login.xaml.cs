@@ -6,6 +6,7 @@ using System.Windows.Input;
 using Newtonsoft.Json;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using System.Threading.Tasks;
 
 namespace Libmemo.Pages.Auth
 {
@@ -22,7 +23,7 @@ namespace Libmemo.Pages.Auth
 		{
 			InitializeComponent();
 			BindingContext = new ViewModel();
-		}
+        }
 
 		protected override void OnAppearing()
 		{
@@ -71,7 +72,6 @@ namespace Libmemo.Pages.Auth
 			}
 
 
-
 			public ICommand LoginCommand => new Command(async () => {
 				if (cancelTokenSource != null) return;
 
@@ -87,7 +87,6 @@ namespace Libmemo.Pages.Auth
 				}
 
 				StartLoading("Авторизация");
-
 
 				var content = new FormUrlEncodedContent(new Dictionary<string, string> {
 					{"email", this.Email },
@@ -120,7 +119,6 @@ namespace Libmemo.Pages.Auth
 					cancelTokenSource = null;
 					StopLoading();
 				}
-
 
 				var str = await response.Content.ReadAsStringAsync();
 

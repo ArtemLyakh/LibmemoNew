@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading.Tasks;
+using Plugin.Toasts;
 using Xamarin.Forms;
 
 namespace Libmemo
@@ -9,7 +11,19 @@ namespace Libmemo
 
 		public void Show(string text)
 		{
-			DependencyService.Get<IToastNotification>().Show(text);
+            switch (Device.RuntimePlatform) {
+                case Device.Android:
+                    DependencyService.Get<IToastNotification>().Show(text);
+                    break;
+                case Device.iOS:
+                    DependencyService.Get<IToastNotificator>().Notify(new NotificationOptions
+                    {
+                        Description = text,
+                        ClearFromHistory = true,
+                        IsClickable = false,
+                    });
+                    break;
+            }
 		}
     }
 }

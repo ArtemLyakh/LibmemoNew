@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace Libmemo
 {
-    public class BaseViewModel
+    public class BaseViewModel : INotifyPropertyChanged
     {
         public BaseViewModel() { }
 
@@ -22,7 +22,7 @@ namespace Libmemo
 
 
 
-		private bool _isLoading = false;
+        private bool _isLoading = false;
 		public bool IsLoading
 		{
 			get => _isLoading;
@@ -66,7 +66,6 @@ namespace Libmemo
 
 
 		public event PropertyChangedEventHandler PropertyChanged;
-		protected void OnPropertyChanged(string propertyName = "") =>
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+		protected void OnPropertyChanged(string propertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

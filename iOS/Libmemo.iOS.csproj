@@ -75,6 +75,7 @@
     <MtouchArch>ARM64</MtouchArch>
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
     <PlatformTarget>x86</PlatformTarget>
+    <MtouchSdkVersion>11.0</MtouchSdkVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -117,6 +118,12 @@
     <Reference Include="Plugin.Settings">
       <HintPath>..\packages\Xam.Plugins.Settings.3.0.1\lib\Xamarin.iOS10\Plugin.Settings.dll</HintPath>
     </Reference>
+    <Reference Include="Toasts.Forms.Plugin.Abstractions">
+      <HintPath>..\packages\Toasts.Forms.Plugin.3.2.1\lib\Xamarin.iOS10\Toasts.Forms.Plugin.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Toasts.Forms.Plugin.iOS">
+      <HintPath>..\packages\Toasts.Forms.Plugin.3.2.1\lib\Xamarin.iOS10\Toasts.Forms.Plugin.iOS.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Libmemo\Libmemo.csproj">
@@ -139,12 +146,135 @@
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
     <None Include="packages.config" />
+    <None Include="menu_reg.png.zip" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Dependencies\IToastNotificationsImplementation.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="calc_route.png" />
+    <BundleResource Include="back.png" />
+    <BundleResource Include="arrow_up.png" />
+    <BundleResource Include="arrow_down.png" />
+    <BundleResource Include="admin.png" />
+    <BundleResource Include="add.png" />
+    <BundleResource Include="menu.png" />
+    <BundleResource Include="menu_tree.png" />
+    <BundleResource Include="menu_sync.png" />
+    <BundleResource Include="menu_rel.png" />
+    <BundleResource Include="menu_reg.png" />
+    <BundleResource Include="menu_map.png" />
+    <BundleResource Include="menu_login.png" />
+    <BundleResource Include="menu_exit.png" />
+    <BundleResource Include="line_route.png" />
+    <BundleResource Include="info.png" />
+    <BundleResource Include="icon.png" />
+    <BundleResource Include="gps_on.png" />
+    <BundleResource Include="gps_off.png" />
+    <BundleResource Include="delete.png" />
+    <BundleResource Include="default_pin.png" />
+    <BundleResource Include="placeholder.png" />
+    <BundleResource Include="pin_show.png" />
+    <BundleResource Include="pin_hide.png" />
+    <BundleResource Include="no_tree_img.png" />
+    <BundleResource Include="no_img.png" />
+    <BundleResource Include="zoom_out.png" />
+    <BundleResource Include="zoom_in.png" />
+    <BundleResource Include="user.png" />
+    <BundleResource Include="tree_add_button.png" />
+    <BundleResource Include="street_view.png" />
+    <BundleResource Include="splash_logo.jpg" />
+    <BundleResource Include="speaker_pin.png" />
+    <BundleResource Include="space_view.png" />
+    <BundleResource Include="sound_stop.png" />
+    <BundleResource Include="sound_play.png" />
+    <BundleResource Include="search.png" />
+    <BundleResource Include="save.png" />
+    <BundleResource Include="route_delete.png" />
+    <BundleResource Include="reload.png" />
+    <BundleResource Include="zoom_out%402x.png" />
+    <BundleResource Include="zoom_in%402x.png" />
+    <BundleResource Include="user%402x.png" />
+    <BundleResource Include="tree_add_button%402x.png" />
+    <BundleResource Include="street_view%402x.png" />
+    <BundleResource Include="splash_logo%402x.jpg" />
+    <BundleResource Include="speaker_pin%402x.png" />
+    <BundleResource Include="space_view%402x.png" />
+    <BundleResource Include="sound_stop%402x.png" />
+    <BundleResource Include="sound_play%402x.png" />
+    <BundleResource Include="search%402x.png" />
+    <BundleResource Include="save%402x.png" />
+    <BundleResource Include="route_delete%402x.png" />
+    <BundleResource Include="reload%402x.png" />
+    <BundleResource Include="placeholder%402x.png" />
+    <BundleResource Include="pin_show%402x.png" />
+    <BundleResource Include="pin_hide%402x.png" />
+    <BundleResource Include="no_tree_img%402x.png" />
+    <BundleResource Include="no_img%402x.png" />
+    <BundleResource Include="menu%402x.png" />
+    <BundleResource Include="menu_tree%402x.png" />
+    <BundleResource Include="menu_sync%402x.png" />
+    <BundleResource Include="menu_rel%402x.png" />
+    <BundleResource Include="menu_reg%402x.png" />
+    <BundleResource Include="menu_map%402x.png" />
+    <BundleResource Include="menu_login%402x.png" />
+    <BundleResource Include="menu_exit%402x.png" />
+    <BundleResource Include="line_route%402x.png" />
+    <BundleResource Include="info%402x.png" />
+    <BundleResource Include="icon%402x.png" />
+    <BundleResource Include="gps_on%402x.png" />
+    <BundleResource Include="gps_off%402x.png" />
+    <BundleResource Include="delete%402x.png" />
+    <BundleResource Include="default_pin%402x.png" />
+    <BundleResource Include="calc_route%402x.png" />
+    <BundleResource Include="back%402x.png" />
+    <BundleResource Include="arrow_up%402x.png" />
+    <BundleResource Include="arrow_down%402x.png" />
+    <BundleResource Include="admin%402x.png" />
+    <BundleResource Include="add%402x.png" />
+    <BundleResource Include="zoom_out%403x.png" />
+    <BundleResource Include="zoom_in%403x.png" />
+    <BundleResource Include="user%403x.png" />
+    <BundleResource Include="tree_add_button%403x.png" />
+    <BundleResource Include="street_view%403x.png" />
+    <BundleResource Include="splash_logo%403x.jpg" />
+    <BundleResource Include="speaker_pin%403x.png" />
+    <BundleResource Include="space_view%403x.png" />
+    <BundleResource Include="sound_stop%403x.png" />
+    <BundleResource Include="sound_play%403x.png" />
+    <BundleResource Include="search%403x.png" />
+    <BundleResource Include="save%403x.png" />
+    <BundleResource Include="route_delete%403x.png" />
+    <BundleResource Include="reload%403x.png" />
+    <BundleResource Include="placeholder%403x.png" />
+    <BundleResource Include="pin_show%403x.png" />
+    <BundleResource Include="pin_hide%403x.png" />
+    <BundleResource Include="no_tree_img%403x.png" />
+    <BundleResource Include="no_img%403x.png" />
+    <BundleResource Include="menu%403x.png" />
+    <BundleResource Include="menu_tree%403x.png" />
+    <BundleResource Include="menu_sync%403x.png" />
+    <BundleResource Include="menu_rel%403x.png" />
+    <BundleResource Include="menu_reg%403x.png" />
+    <BundleResource Include="menu_map%403x.png" />
+    <BundleResource Include="menu_login%403x.png" />
+    <BundleResource Include="menu_exit%403x.png" />
+    <BundleResource Include="line_route%403x.png" />
+    <BundleResource Include="info%403x.png" />
+    <BundleResource Include="icon%403x.png" />
+    <BundleResource Include="gps_on%403x.png" />
+    <BundleResource Include="gps_off%403x.png" />
+    <BundleResource Include="delete%403x.png" />
+    <BundleResource Include="default_pin%403x.png" />
+    <BundleResource Include="calc_route%403x.png" />
+    <BundleResource Include="back%403x.png" />
+    <BundleResource Include="arrow_up%403x.png" />
+    <BundleResource Include="arrow_down%403x.png" />
+    <BundleResource Include="admin%403x.png" />
+    <BundleResource Include="add%403x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.3.4.270\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.4.270\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />

@@ -33,8 +33,7 @@ namespace Libmemo
 		{
 			InnerLogout();
 
-            throw new NotSupportedException();
-			//await App.GlobalPage.PushRoot(new Pages.Login());
+            await App.GlobalPage.PushRoot(new Pages.Auth.Login());
 		}
 
 		public static bool IsLogged { get => Settings.AuthInfo != null; }
