@@ -140,6 +140,9 @@
     <Compile Include="Pages\Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomElements\CustomMap\Map.cs" />
+    <Compile Include="CustomElements\CustomMap\Pin.cs" />
+    <Compile Include="CustomElements\CustomMap\PinImage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\" />
@@ -158,6 +161,7 @@
     <Folder Include="CustomElements\CustomListView\" />
     <Folder Include="Behaviors\" />
     <Folder Include="Pages\Relatives\" />
+    <Folder Include="CustomElements\CustomMap\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">
