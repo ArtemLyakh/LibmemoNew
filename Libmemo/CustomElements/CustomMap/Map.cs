@@ -7,7 +7,7 @@ using CustomMaps = Libmemo.CustomElements.CustomMap;
 
 namespace Libmemo.CustomElements.CustomMap
 {
-    public class Map : Xamarin.Forms.Maps.Map
+    public class Map : Xamarin.Forms.Maps.Map, ICustomMapRendererReverseFunctions
     {
 		public static readonly BindableProperty CameraPositionProperty = BindableProperty.Create(
 			nameof(CameraPosition),
@@ -129,5 +129,34 @@ namespace Libmemo.CustomElements.CustomMap
 			set => this.SetValue(MapClickCommandProperty, value);
 		}
 
-	}
+
+        void ICustomMapRendererReverseFunctions.RaiseInfoWindowClick(CustomMaps.Pin pin)
+        {
+            var command = this.InfoWindowClickedCommand;
+            if (command != null && command.CanExecute(pin)) {
+                command.Execute(pin);
+            }
+        }
+		void ICustomMapRendererReverseFunctions.RaiseUserPositionChange(Position position)
+		{
+			var command = this.UserPositionChangedCommand;
+			if (command != null && command.CanExecute(position)) {
+				command.Execute(position);
+			}
+		}
+        void ICustomMapRendererReverseFunctions.RaiseMapClick(Position position)
+        {
+            var command = this.MapClickCommand;
+            if (command != null && command.CanExecute(position)) {
+                command.Execute(position);
+            }
+        }
+    }
+
+    public interface ICustomMapRendererReverseFunctions
+    {
+        void RaiseInfoWindowClick(CustomMaps.Pin pin);
+		void RaiseUserPositionChange(Position position);
+		void RaiseMapClick(Position position);
+    }
 }
