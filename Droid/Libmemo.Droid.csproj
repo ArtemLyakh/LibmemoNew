@@ -163,6 +163,7 @@
     <Compile Include="Dependencies\IToastNotificationsImplementation.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Dependencies\IFileStreamPickerImplementation.cs" />
+    <Compile Include="Renderers\CustomMapRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
