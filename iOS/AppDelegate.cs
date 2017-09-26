@@ -18,6 +18,7 @@ namespace Libmemo.iOS
             global::FFImageLoading.Forms.Touch.CachedImageRenderer.Init();
 			DependencyService.Register<Plugin.Toasts.ToastNotification>(); // Register your dependency
             Plugin.Toasts.ToastNotification.Init();
+            Xamarin.FormsMaps.Init();
 
             GetPermissions(app);
 

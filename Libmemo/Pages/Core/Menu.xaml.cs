@@ -45,6 +45,12 @@ namespace Libmemo.Pages.Core
 
 		private static IEnumerable<MenuItem> GetMenuList()
 		{
+            yield return new MenuItem
+            {
+                Text = "Test",
+                Image = ImageSource.FromFile("menu_map"),
+                Action = () => App.GlobalPage.PushRoot(new Pages.Test())
+            };
 			yield return new MenuItem
 			{
 				Text = "Карта",

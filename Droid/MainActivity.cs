@@ -25,6 +25,7 @@ namespace Libmemo.Droid
             global::FFImageLoading.Forms.Droid.CachedImageRenderer.Init();
 			DependencyService.Register<Plugin.Toasts.ToastNotification>(); // Register your dependency
             Plugin.Toasts.ToastNotification.Init(this);
+            Xamarin.FormsMaps.Init(this, bundle);
 
             LoadApplication(new App());
         }
