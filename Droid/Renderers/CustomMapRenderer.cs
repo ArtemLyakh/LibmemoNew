@@ -32,16 +32,20 @@ namespace Libmemo.Droid.Renderers
 
                 formsMap.PropertyChanged -= FormMapPropertyChanged;
                 formsMap.Pins.CollectionChanged -= FormsMapPinChanged;
+                formsMap.Route.CollectionChanged -= FormsMapRouteChanged;
 
+                //googleMap events
             }
 
             if (e.NewElement != null)
             {
                 var formsMap = (Libmemo.CustomElements.CustomMap.Map)e.NewElement;
 
+
+
                 formsMap.PropertyChanged += FormMapPropertyChanged;
                 formsMap.Pins.CollectionChanged += FormsMapPinChanged;
-
+                formsMap.Route.CollectionChanged += FormsMapRouteChanged;
 
                 Control.GetMapAsync(this);
             }
@@ -52,7 +56,7 @@ namespace Libmemo.Droid.Renderers
             _googleMap = googleMap;
             _googleMap.SetInfoWindowAdapter(this);
 
-
+            //googleMap events
         }
 
         protected override void OnLayout(bool changed, int l, int t, int r, int b)
@@ -82,7 +86,10 @@ namespace Libmemo.Droid.Renderers
         {
 
         }
+		private void FormsMapRouteChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+		{
 
+		}
 
         private void Clear()
         {
