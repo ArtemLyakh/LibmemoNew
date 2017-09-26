@@ -391,7 +391,7 @@ namespace Libmemo.Pages.Relatives
 				SchemeStream = null;
 			}
             public ICommand SelectSchemeCommand => new Command(async () => {
-                await NewSelectSchemeCommand();
+               // await NewSelectSchemeCommand();
             	//var file = await Plugin.FilePicker.CrossFilePicker.Current.PickFile();
             	//if (file == null) return;
 
@@ -418,16 +418,6 @@ namespace Libmemo.Pages.Relatives
             	//SetScheme(fileName, stream);
             });
 
-
-            private async System.Threading.Tasks.Task NewSelectSchemeCommand() {
-                var qqq = await Plugin.FilePicker.CrossFilePicker.Current.PickFile();
-
-                var st = qqq.GetStream();
-
-                qqq.Dispose();
-
-                var q = 1;
-            }
 
 			private string _section;
 			public string Section
