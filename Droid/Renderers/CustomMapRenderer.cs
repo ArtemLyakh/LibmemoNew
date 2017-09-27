@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Runtime.Serialization;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
 using Android.Views;
+using Android.Widget;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps.Android;
 
@@ -36,6 +39,8 @@ namespace Libmemo.Droid.Renderers
                 //googleMap events
                 _googleMap.MapClick -= OnMapClicked;
                 _googleMap.CameraChange -= OnCameraPositionChanged;
+                _googleMap.MarkerClick -= OnMarkerClicked;
+                _googleMap.InfoWindowClose -= OnInfoWindowClosed;
             }
 
             if (e.NewElement != null)
@@ -62,6 +67,8 @@ namespace Libmemo.Droid.Renderers
             //googleMap events
             _googleMap.MapClick += OnMapClicked;
             _googleMap.CameraChange += OnCameraPositionChanged;
+            _googleMap.MarkerClick += OnMarkerClicked;
+            _googleMap.InfoWindowClose += OnInfoWindowClosed;
         }
 		private void InvokeOnMapReadyBaseClassHack(GoogleMap googleMap)
 		{
@@ -97,6 +104,7 @@ namespace Libmemo.Droid.Renderers
 			}
 		}
 
+
         protected override void OnLayout(bool changed, int l, int t, int r, int b)
         {
             base.OnLayout(changed, l, t, r, b);
@@ -128,7 +136,18 @@ namespace Libmemo.Droid.Renderers
                 var latLng = new LatLng(map.CameraPosition.Latitude, map.CameraPosition.Longitude);
                 var zoom = (float)map.CameraZoom;
                 _googleMap.AnimateCamera(CameraUpdateFactory.NewLatLngZoom(latLng, zoom));
-            } else if (e.PropertyName == Libmemo.CustomElements.CustomMap.Map.PinsProperty.PropertyName) {
+                return;
+            }
+
+            if (e.PropertyName == Libmemo.CustomElements.CustomMap.Map.IsGesturesEnabledProperty.PropertyName) {
+				_googleMap.UiSettings.TiltGesturesEnabled = map.IsGesturesEnabled;
+                _googleMap.UiSettings.ZoomGesturesEnabled = map.IsGesturesEnabled;
+                _googleMap.UiSettings.RotateGesturesEnabled = map.IsGesturesEnabled;
+                _googleMap.UiSettings.ScrollGesturesEnabled = map.IsGesturesEnabled;
+                return;
+            }
+
+            if (e.PropertyName == Libmemo.CustomElements.CustomMap.Map.PinsProperty.PropertyName) {
                 foreach(var pinMarker in PinsMarkers) {
                     pinMarker.Key.PropertyChanged -= PinPropertyChanged;
                     pinMarker.Value.Remove();
@@ -143,6 +162,7 @@ namespace Libmemo.Droid.Renderers
                         PinsMarkers[pin] = marker;
 					}
                 }
+                return;
             }
 
         }
@@ -182,9 +202,15 @@ namespace Libmemo.Droid.Renderers
         }
 
 
+        private void OnMarkerClicked(object sender, GoogleMap.MarkerClickEventArgs e)
+        {
+            var q = 1;
+        }
 
-
-
+        private void OnInfoWindowClosed(object sender, GoogleMap.InfoWindowCloseEventArgs e)
+        {
+            var q = 1;
+        }
 
 
 
@@ -193,12 +219,36 @@ namespace Libmemo.Droid.Renderers
 
         Android.Views.View GoogleMap.IInfoWindowAdapter.GetInfoContents(Marker marker)
         {
-            throw new NotImplementedException();
+            var inflater = Android.App.Application.Context.GetSystemService(Android.Content.Context.LayoutInflaterService) as Android.Views.LayoutInflater;
+			if (inflater != null)
+			{
+				Android.Views.View view;
+
+                var pin = PinsMarkers.First(i => i.Value.Id == marker.Id).Key;
+
+				view = inflater.Inflate(Resource.Layout.MapInfoWindow, null);
+
+				var infoTitle = view.FindViewById<TextView>(Resource.Id.InfoWindowTitle);
+				var infoSubtitle = view.FindViewById<TextView>(Resource.Id.InfoWindowSubtitle);
+				var infoWindowButton = view.FindViewById<ImageButton>(Resource.Id.InfoWindowButton);
+
+				if (infoTitle != null)
+				{
+                    infoTitle.Text = pin.Title;
+				}
+				if (infoSubtitle != null)
+				{
+                    infoSubtitle.Text = pin.Text;
+				}
+
+				return view;
+			}
+			return null;
         }
 
         Android.Views.View GoogleMap.IInfoWindowAdapter.GetInfoWindow(Marker marker)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
 

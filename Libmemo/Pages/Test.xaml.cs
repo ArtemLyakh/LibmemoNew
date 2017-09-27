@@ -19,8 +19,7 @@ namespace Libmemo.Pages
 
         public ICommand TestCommand => new Command(() =>
         {
-            this.CameraPosition = new Position(45, 35);
-            this.CameraZoom = 9;
+            this.IsGesturesEnabled = !this.IsGesturesEnabled;
         });
 
 		private Position _cameraPosition;
