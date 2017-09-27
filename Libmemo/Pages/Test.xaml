@@ -4,7 +4,21 @@
     xmlns:maps="clr-namespace:Libmemo.CustomElements.CustomMap" 
     x:Class="Libmemo.Pages.Test" Title="TEST"
     >
+    <ContentPage.ToolbarItems>
+      <ToolbarItem Text="CLICK" Command="{Binding TestCommand}" />
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <maps:Map IsShowingUser="true" />
+        <maps:Map IsShowingUser="true"
+            CameraPosition="{Binding CameraPosition}"
+            CameraZoom="{Binding CameraZoom}"
+            IsGesturesEnabled="{Binding IsGesturesEnabled}"
+            Pins="{Binding Pins}"
+            SelectedPin="{Binding SelectedPin}"
+            Route="{Binding Route}"
+            IsShowInfoWindow="{Binding IsShowInfoWindow}"
+            InfoWindowClickedCommand="{Binding InfoWindowClickedCommand}"
+            UserPositionChangedCommand="{Binding UserPositionChangedCommand}"
+            MapClickCommand="{Binding MapClickCommand}"
+            />
     </ContentPage.Content>
 </ContentPage>

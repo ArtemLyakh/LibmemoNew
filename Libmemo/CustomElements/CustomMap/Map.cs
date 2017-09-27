@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
@@ -31,7 +31,7 @@ namespace Libmemo.CustomElements.CustomMap
         );
         public static readonly BindableProperty PinsProperty = BindableProperty.Create(
             nameof(Pins),
-            typeof(ObservableCollection<CustomMaps.Pin>),
+            typeof(List<CustomMaps.Pin>),
             typeof(CustomMaps.Map)
         );
         public static readonly BindableProperty SelectedPinProperty = BindableProperty.Create(
@@ -43,7 +43,7 @@ namespace Libmemo.CustomElements.CustomMap
         );
         public static readonly BindableProperty RouteProperty = BindableProperty.Create(
             nameof(Route),
-            typeof(ObservableCollection<Position>),
+            typeof(List<Position>),
             typeof(CustomMaps.Map)
         );
         public static readonly BindableProperty IsShowInfoWindowProperty = BindableProperty.Create(
@@ -55,17 +55,17 @@ namespace Libmemo.CustomElements.CustomMap
 
         public static readonly BindableProperty InfoWindowClickedCommandProperty = BindableProperty.Create(
             nameof(InfoWindowClickedCommand),
-            typeof(Command<CustomMaps.Pin>),
+            typeof(ICommand),
             typeof(CustomMaps.Map)
         );
         public static readonly BindableProperty UserPositionChangedCommandProperty = BindableProperty.Create(
             nameof(UserPositionChangedCommand),
-            typeof(Command<Position>),
+            typeof(ICommand),
             typeof(CustomMaps.Map)
         );
 		public static readonly BindableProperty MapClickCommandProperty = BindableProperty.Create(
         	nameof(MapClickCommand),
-        	typeof(Command<Position>),
+            typeof(ICommand),
             typeof(CustomMaps.Map)
         );
 
@@ -92,9 +92,9 @@ namespace Libmemo.CustomElements.CustomMap
             get => (bool)this.GetValue(IsGesturesEnabledProperty);
             set => this.SetValue(IsGesturesEnabledProperty, value);
         }
-        public new ObservableCollection<CustomMaps.Pin> Pins
+        public new List<CustomMaps.Pin> Pins
         {
-            get => (ObservableCollection<CustomMaps.Pin>)this.GetValue(PinsProperty);
+            get => (List<CustomMaps.Pin>)this.GetValue(PinsProperty);
             set => this.SetValue(PinsProperty, value); 
         }
         public CustomMaps.Pin SelectedPin
@@ -102,9 +102,9 @@ namespace Libmemo.CustomElements.CustomMap
             get => (CustomMaps.Pin)this.GetValue(SelectedPinProperty);
             set => this.SetValue(SelectedPinProperty, value);
         }
-        public ObservableCollection<Position> Route
+        public List<Position> Route
         {
-            get => (ObservableCollection<Position>)this.GetValue(RouteProperty);
+            get => (List<Position>)this.GetValue(RouteProperty);
             set => this.SetValue(RouteProperty, value);
         }
         public bool IsShowInfoWindow 
@@ -130,6 +130,16 @@ namespace Libmemo.CustomElements.CustomMap
 		}
 
 
+
+
+		void IMapRendererCallable.RaiseCameraPositionChange(Position position)
+		{
+            this.CameraPosition = position;
+		}
+		void IMapRendererCallable.RaiseCameraZoomChange(double zoom)
+		{
+            this.CameraZoom = zoom;
+		}
         void IMapRendererCallable.RaiseInfoWindowClick(CustomMaps.Pin pin)
         {
             var command = this.InfoWindowClickedCommand;
@@ -151,10 +161,15 @@ namespace Libmemo.CustomElements.CustomMap
                 command.Execute(position);
             }
         }
+
+
     }
 
     public interface IMapRendererCallable
     {
+        void RaiseCameraPositionChange(Position position);
+        void RaiseCameraZoomChange(double zoom);
+
         void RaiseInfoWindowClick(CustomMaps.Pin pin);
 		void RaiseUserPositionChange(Position position);
 		void RaiseMapClick(Position position);
