@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net;
 using System.Runtime.Serialization;
+using System.Threading.Tasks;
 using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
 using Android.Views;
 using Android.Widget;
+using FFImageLoading;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps.Android;
+using Xamarin.Forms.Platform.Android;
 
 [assembly: ExportRenderer(typeof(Libmemo.CustomElements.CustomMap.Map), typeof(Libmemo.Droid.Renderers.CustomMapRenderer))]
 namespace Libmemo.Droid.Renderers
@@ -23,8 +27,11 @@ namespace Libmemo.Droid.Renderers
 
 
         private Dictionary<CustomElements.CustomMap.Pin, Marker> PinsMarkers { get; } = new Dictionary<CustomElements.CustomMap.Pin, Marker>();
+		private Polyline _route;
 
+        private Libmemo.CustomElements.CustomMap.Pin _selectedPin;
 
+        private Dictionary<Uri, Android.Graphics.Bitmap> MarkerIconsDownloaded = new Dictionary<Uri, Android.Graphics.Bitmap>();
 
         protected override void OnElementChanged(Xamarin.Forms.Platform.Android.ElementChangedEventArgs<Xamarin.Forms.Maps.Map> e)
         {
@@ -41,6 +48,8 @@ namespace Libmemo.Droid.Renderers
                 _googleMap.CameraChange -= OnCameraPositionChanged;
                 _googleMap.MarkerClick -= OnMarkerClicked;
                 _googleMap.InfoWindowClose -= OnInfoWindowClosed;
+                _googleMap.MyLocationChange -= OnUserLocationChanged;
+                _googleMap.InfoWindowClick += OnInfoWindowClicked;
             }
 
             if (e.NewElement != null)
@@ -69,6 +78,8 @@ namespace Libmemo.Droid.Renderers
             _googleMap.CameraChange += OnCameraPositionChanged;
             _googleMap.MarkerClick += OnMarkerClicked;
             _googleMap.InfoWindowClose += OnInfoWindowClosed;
+            _googleMap.MyLocationChange += OnUserLocationChanged;
+            _googleMap.InfoWindowClick += OnInfoWindowClicked;
         }
 		private void InvokeOnMapReadyBaseClassHack(GoogleMap googleMap)
 		{
@@ -165,6 +176,26 @@ namespace Libmemo.Droid.Renderers
                 return;
             }
 
+            if (e.PropertyName == Libmemo.CustomElements.CustomMap.Map.SelectedPinProperty.PropertyName) {
+                if (map.SelectedPin == null && _selectedPin != null) {
+                    PinsMarkers[_selectedPin].HideInfoWindow();
+                } else {
+                    PinsMarkers[map.SelectedPin].ShowInfoWindow();
+                }
+
+                return;
+            }
+
+            if (e.PropertyName == Libmemo.CustomElements.CustomMap.Map.RouteProperty.PropertyName) {
+                if (_route != null) {
+                    _route.Remove();
+                    _route = null;
+                }
+
+                if (map.Route != null && map.Route.Count >= 2) {
+                    _route = GetRoute(map.Route);
+                }
+            }
         }
         private void PinPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
@@ -177,13 +208,22 @@ namespace Libmemo.Droid.Renderers
 
         private void Clear()
         {
-            
+			foreach (var pinMarker in PinsMarkers)
+			{
+				pinMarker.Key.PropertyChanged -= PinPropertyChanged;
+				pinMarker.Value.Remove();
+			}
+			PinsMarkers.Clear();
         }
 
         private void Draw()
         {
             _googleMap.MyLocationEnabled = true;
-            _googleMap.UiSettings.MyLocationButtonEnabled = true;
+
+			_googleMap.UiSettings.MyLocationButtonEnabled = false;
+			_googleMap.UiSettings.MapToolbarEnabled = false;
+			_googleMap.UiSettings.CompassEnabled = false;
+			_googleMap.UiSettings.ZoomControlsEnabled = false;
         }
 
 
@@ -204,13 +244,37 @@ namespace Libmemo.Droid.Renderers
 
         private void OnMarkerClicked(object sender, GoogleMap.MarkerClickEventArgs e)
         {
-            var q = 1;
+            if (!FormMap.IsShowInfoWindow) return;
+
+            var pin = PinsMarkers.First(i => i.Value.Id == e.Marker.Id).Key;
+            _selectedPin = pin;
+            RendererCall.RaiseSelectedPinSelect(pin);
+
+            e.Marker.ShowInfoWindow();
         }
 
         private void OnInfoWindowClosed(object sender, GoogleMap.InfoWindowCloseEventArgs e)
         {
-            var q = 1;
+            var pin = PinsMarkers.First(i => i.Value.Id == e.Marker.Id).Key;
+
+            if (FormMap.SelectedPin == pin) {
+                RendererCall.RaiseSelectedPinSelect(null);
+                _selectedPin = null;
+            }
         }
+
+        private void OnUserLocationChanged(object sender, GoogleMap.MyLocationChangeEventArgs e)
+        {
+            RendererCall.RaiseUserPositionChange(new Xamarin.Forms.Maps.Position(e.Location.Latitude, e.Location.Longitude));
+        }
+
+        private void OnInfoWindowClicked(object sender, GoogleMap.InfoWindowClickEventArgs e)
+        {
+            var pin = PinsMarkers.First(i => i.Value.Id == e.Marker.Id).Key;
+            
+            RendererCall.RaiseInfoWindowClick(pin);
+        }
+
 
 
 
@@ -239,6 +303,57 @@ namespace Libmemo.Droid.Renderers
 				if (infoSubtitle != null)
 				{
                     infoSubtitle.Text = pin.Text;
+				}
+
+                if (pin.Icon != null)
+				{
+					if (MarkerIconsDownloaded.ContainsKey(pin.Icon))
+					{
+						infoWindowButton.SetMaxHeight(infoWindowButton.Height);
+						infoWindowButton.SetMaxWidth(infoWindowButton.Width);
+						infoWindowButton.SetBackgroundColor(Android.Graphics.Color.Transparent);
+						infoWindowButton.SetImageBitmap(MarkerIconsDownloaded[pin.Icon]);
+					}
+					else
+					{
+						Task.Run(async () => {
+							Android.Graphics.Bitmap bitmap;
+
+							try
+							{
+                                var request = (HttpWebRequest)WebRequest.Create(pin.Icon);
+                                request.Method = "GET";
+                                request.Timeout = 5000;
+
+                                using (var responce = await request.GetResponseAsync()) {
+                                    var download = responce.GetResponseStream();
+                                    						
+									try
+									{
+										bitmap = await Android.Graphics.BitmapFactory.DecodeStreamAsync(download);
+									}
+									catch
+									{
+										bitmap = null;
+									}
+                                }
+							}
+							catch (Exception e)
+							{
+                                bitmap = null;
+							}
+
+							if (bitmap != null)
+							{
+                                MarkerIconsDownloaded[pin.Icon] = bitmap;
+
+								if (this._selectedPin != null && this._selectedPin == pin)
+								{
+									Device.BeginInvokeOnMainThread(() => marker.ShowInfoWindow());
+								}
+							}
+						});
+					}
 				}
 
 				return view;
@@ -282,7 +397,22 @@ namespace Libmemo.Droid.Renderers
 				throw new NotImplementedException();
 			}
 
-			return _googleMap.AddMarker(marker);		
+            return _googleMap.AddMarker(marker);		
+        }
+
+        private Polyline GetRoute(List<Xamarin.Forms.Maps.Position> route)
+        {
+			var line = new PolylineOptions();
+			line.Clickable(false);
+			line.Visible(true);
+			line.InvokeColor(Color.Red.ToAndroid());
+			line.InvokeWidth(5);
+
+            foreach(var position in route) {
+                line.Add(new LatLng(position.Latitude, position.Longitude));
+            }
+
+            return _googleMap.AddPolyline(line);
         }
     }
 }

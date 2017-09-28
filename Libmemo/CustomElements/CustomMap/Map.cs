@@ -162,13 +162,17 @@ namespace Libmemo.CustomElements.CustomMap
             }
         }
 
-
+        void IMapRendererCallable.RaiseSelectedPinSelect(Pin pin)
+        {
+            this.SelectedPin = pin;
+        }
     }
 
     public interface IMapRendererCallable
     {
         void RaiseCameraPositionChange(Position position);
         void RaiseCameraZoomChange(double zoom);
+        void RaiseSelectedPinSelect(CustomMaps.Pin pin);
 
         void RaiseInfoWindowClick(CustomMaps.Pin pin);
 		void RaiseUserPositionChange(Position position);

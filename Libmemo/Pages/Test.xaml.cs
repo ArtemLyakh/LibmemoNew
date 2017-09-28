@@ -19,7 +19,7 @@ namespace Libmemo.Pages
 
         public ICommand TestCommand => new Command(() =>
         {
-            this.IsGesturesEnabled = !this.IsGesturesEnabled;
+            Route = Pins?.Select(i => new Position(i.Position.Latitude, i.Position.Longitude)).ToList();
         });
 
 		private Position _cameraPosition;
@@ -106,7 +106,7 @@ namespace Libmemo.Pages
 			}
 		}
 
-		private bool _isShowInfoWindow;
+		private bool _isShowInfoWindow = true;
 		public bool IsShowInfoWindow
 		{
 			get => _isShowInfoWindow;
@@ -120,12 +120,12 @@ namespace Libmemo.Pages
 			}
 		}
 
-        public ICommand InfoWindowClickedCommand => new Command(() =>
+        public ICommand InfoWindowClickedCommand => new Command<CustomElements.CustomMap.Pin>(pin =>
         {
             var q = 1;
         });
 
-		public ICommand UserPositionChangedCommand => new Command(() =>
+        public ICommand UserPositionChangedCommand => new Command<Position>(position =>
 		{
 			var q = 1;
 		});
@@ -135,7 +135,7 @@ namespace Libmemo.Pages
 		{
             var newEl = new List<Libmemo.CustomElements.CustomMap.Pin>
             {
-                new CustomElements.CustomMap.Pin(++i, "title", "text", null, position)
+                new CustomElements.CustomMap.Pin(++i, "title", "text", new Uri("https://www.google.ru/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"), position)
             };
             Pins = Pins?.Concat(newEl).ToList() ?? newEl;
 		});
