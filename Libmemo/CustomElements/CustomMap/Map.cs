@@ -16,13 +16,6 @@ namespace Libmemo.CustomElements.CustomMap
 			default(Position),
 			BindingMode.TwoWay
 		);
-        public static readonly BindableProperty CameraZoomProperty = BindableProperty.Create(
-            nameof(CameraZoom),
-            typeof(double),
-            typeof(CustomMaps.Map),
-            default(double),
-            BindingMode.TwoWay
-        );
         public static readonly BindableProperty IsGesturesEnabledProperty = BindableProperty.Create(
             nameof(IsGesturesEnabled),
             typeof(bool),
@@ -82,11 +75,6 @@ namespace Libmemo.CustomElements.CustomMap
             get => (Position)this.GetValue(CameraPositionProperty); 
             set => this.SetValue(CameraPositionProperty, value); 
         }
-		public double CameraZoom
-		{
-            get => (double)this.GetValue(CameraZoomProperty);
-            set => this.SetValue(CameraZoomProperty, value);
-		}
         public bool IsGesturesEnabled 
         {
             get => (bool)this.GetValue(IsGesturesEnabledProperty);
@@ -134,11 +122,7 @@ namespace Libmemo.CustomElements.CustomMap
 
 		void IMapRendererCallable.RaiseCameraPositionChange(Position position)
 		{
-            this.CameraPosition = position;
-		}
-		void IMapRendererCallable.RaiseCameraZoomChange(double zoom)
-		{
-            this.CameraZoom = zoom;
+            this.CameraPosition = position; 
 		}
         void IMapRendererCallable.RaiseInfoWindowClick(CustomMaps.Pin pin)
         {
@@ -166,12 +150,13 @@ namespace Libmemo.CustomElements.CustomMap
         {
             this.SelectedPin = pin;
         }
+
+
     }
 
     public interface IMapRendererCallable
     {
         void RaiseCameraPositionChange(Position position);
-        void RaiseCameraZoomChange(double zoom);
         void RaiseSelectedPinSelect(CustomMaps.Pin pin);
 
         void RaiseInfoWindowClick(CustomMaps.Pin pin);

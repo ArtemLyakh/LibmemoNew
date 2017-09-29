@@ -141,11 +141,9 @@ namespace Libmemo.Droid.Renderers
 
             var map = (Libmemo.CustomElements.CustomMap.Map)sender;
 
-            if (e.PropertyName == Libmemo.CustomElements.CustomMap.Map.CameraPositionProperty.PropertyName
-                || e.PropertyName == Libmemo.CustomElements.CustomMap.Map.CameraZoomProperty.PropertyName
-            ) {
+            if (e.PropertyName == Libmemo.CustomElements.CustomMap.Map.CameraPositionProperty.PropertyName) {
                 var latLng = new LatLng(map.CameraPosition.Latitude, map.CameraPosition.Longitude);
-                var zoom = (float)map.CameraZoom;
+                var zoom = _googleMap.CameraPosition.Zoom;
                 _googleMap.AnimateCamera(CameraUpdateFactory.NewLatLngZoom(latLng, zoom));
                 return;
             }
@@ -202,7 +200,6 @@ namespace Libmemo.Droid.Renderers
             var pin = (Libmemo.CustomElements.CustomMap.Pin)sender;
             var marker = PinsMarkers[pin];
 
-            marker.Visible = pin.IsVisible;
             marker.Position = new LatLng(pin.Position.Latitude, pin.Position.Longitude);
         }
 
@@ -231,7 +228,6 @@ namespace Libmemo.Droid.Renderers
         private void OnCameraPositionChanged(object sender, GoogleMap.CameraChangeEventArgs e)
         {
             RendererCall.RaiseCameraPositionChange(new Xamarin.Forms.Maps.Position(e.Position.Target.Latitude, e.Position.Target.Longitude));
-            RendererCall.RaiseCameraZoomChange(e.Position.Zoom);
         }
 
 
@@ -394,7 +390,7 @@ namespace Libmemo.Droid.Renderers
 			}
 			else
 			{
-				throw new NotImplementedException();
+                throw new NotSupportedException();
 			}
 
             return _googleMap.AddMarker(marker);		

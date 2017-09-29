@@ -159,6 +159,7 @@
   <ItemGroup>
     <Folder Include="Resources\" />
     <Folder Include="Dependencies\" />
+    <Folder Include="Renderers\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -174,6 +175,7 @@
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Dependencies\IToastNotificationsImplementation.cs" />
     <Compile Include="Dependencies\IFileStreamPickerImplementation.cs" />
+    <Compile Include="Renderers\CustomMapRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="calc_route.png" />

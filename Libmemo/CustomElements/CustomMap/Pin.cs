@@ -12,17 +12,6 @@ namespace Libmemo.CustomElements.CustomMap
         public string Text { get; private set; }
         public PinImage PinImage { get; private set; }
 
-        private bool _isVisible = true;
-        public bool IsVisible {
-            get => _isVisible;
-            set {
-                if (_isVisible != value) {
-                    _isVisible = value;
-                    OnPropertyChanged(nameof(IsVisible));
-                }
-            }
-        }
-
         private Position _position;
         public Position Position {
             get => _position;
@@ -34,7 +23,7 @@ namespace Libmemo.CustomElements.CustomMap
             }
         }
 
-        public Pin(int id, string title, string text, Uri icon, Position position, PinImage pinImage = PinImage.Default, bool IsVisible = true)
+        public Pin(int id, string title, string text, Uri icon, Position position, PinImage pinImage = PinImage.Default)
         {
             this.Id = id;
             this.Title = title;
@@ -42,7 +31,6 @@ namespace Libmemo.CustomElements.CustomMap
             this.Icon = icon;
             this.Position = position;
             this.PinImage = PinImage;
-            this.IsVisible = IsVisible;
         }
 
 		public override int GetHashCode()

@@ -10,7 +10,6 @@
     <ContentPage.Content>
         <maps:Map IsShowingUser="true"
             CameraPosition="{Binding CameraPosition}"
-            CameraZoom="{Binding CameraZoom}"
             IsGesturesEnabled="{Binding IsGesturesEnabled}"
             Pins="{Binding Pins}"
             SelectedPin="{Binding SelectedPin}"

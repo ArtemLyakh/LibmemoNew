@@ -15,11 +15,25 @@ namespace Libmemo.Pages
         {
             InitializeComponent();
             BindingContext = this;
+            IsShowInfoWindow = true;
+
+			Pins = new List<CustomElements.CustomMap.Pin>()
+			{
+                new CustomElements.CustomMap.Pin(245,
+                                                 "title",
+                                                 "text", 
+                                                 new Uri(@"http://panor.ru/upload/resize_cache/iblock/463/1980_1200_1/463b3cbe41bdfce98f7e5585f66d4630.jpg"), 
+                                                 new Position(41.89, 12.49)
+                                                ),
+                new CustomElements.CustomMap.Pin(555, "t2", null, null, new Position(41.891, 12.491))
+			};
         }
 
+        private bool sp;
         public ICommand TestCommand => new Command(() =>
         {
-            Route = Pins?.Select(i => new Position(i.Position.Latitude, i.Position.Longitude)).ToList();
+            SelectedPin = Pins[sp ? 0 : 1];
+            sp = !sp;
         });
 
 		private Position _cameraPosition;
@@ -32,20 +46,6 @@ namespace Libmemo.Pages
 				{
 					_cameraPosition = value;
 					OnPropertyChanged(nameof(CameraPosition));
-				}
-			}
-		}
-
-		private double _cameraZoom;
-		public double CameraZoom
-		{
-			get => _cameraZoom;
-			set
-			{
-				if (_cameraZoom != value)
-				{
-					_cameraZoom = value;
-					OnPropertyChanged(nameof(CameraZoom));
 				}
 			}
 		}
@@ -127,7 +127,7 @@ namespace Libmemo.Pages
 
         public ICommand UserPositionChangedCommand => new Command<Position>(position =>
 		{
-			var q = 1;
+            var q = 1;
 		});
 
         private int i = 0;
@@ -135,7 +135,7 @@ namespace Libmemo.Pages
 		{
             var newEl = new List<Libmemo.CustomElements.CustomMap.Pin>
             {
-                new CustomElements.CustomMap.Pin(++i, "title", "text", new Uri("https://www.google.ru/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"), position)
+                new CustomElements.CustomMap.Pin(++i, "title", "text", null, position)
             };
             Pins = Pins?.Concat(newEl).ToList() ?? newEl;
 		});
