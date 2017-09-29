@@ -73,14 +73,13 @@ namespace Libmemo.iOS.Renderers
 
         private void OnCalloutAccessoryControlTapped(object sender, MKMapViewAccessoryTappedEventArgs e) 
         {
-            //if (!(e.View is MKIdAnnotationView)) return;
+            if (!(e.View is MKIdAnnotationView)) return;
 
             var pin = PinAnnotations.First(i => i.Key.Id == int.Parse(e.View.ReuseIdentifier)).Key;
             RendererCall.RaiseInfoWindowClick(pin);
         }
 
-
-        private void OnDidSelectAnnotationView(object sender, MKAnnotationViewEventArgs e)
+		private void OnDidSelectAnnotationView(object sender, MKAnnotationViewEventArgs e)
         {
             if (!(e.View is MKIdAnnotationView)) return;
 
@@ -258,8 +257,12 @@ namespace Libmemo.iOS.Renderers
                                ? UIImage.FromFile("speaker_pin.png")
                                : UIImage.FromFile("default_pin.png"),
                     CalloutOffset = new CoreGraphics.CGPoint(0, 0),
-                    RightCalloutAccessoryView = icon
+                    LeftCalloutAccessoryView = icon,
+                    RightCalloutAccessoryView = UIButton.FromType(UIButtonType.DetailDisclosure)
 				};
+
+                var gr = new UITapGestureRecognizer(() => RendererCall.RaiseInfoWindowClick(pin));
+                annotationView.AddGestureRecognizer(gr);
 			}
             annotationView.CanShowCallout = FormMap.IsShowInfoWindow;
 			return annotationView;
