@@ -32,8 +32,7 @@ namespace Libmemo.Pages
         private bool sp;
         public ICommand TestCommand => new Command(() =>
         {
-            SelectedPin = Pins[sp ? 0 : 1];
-            sp = !sp;
+            Route = Pins.Select(i => i.Position).ToList();
         });
 
 		private Position _cameraPosition;

@@ -28,6 +28,12 @@ namespace Libmemo.iOS.Renderers
         private CustomElements.CustomMap.Pin _selectedPin = null;
         private bool selectedPinChanging = false;
 
+        private UIGestureRecognizer _tapGestureRecognizer;
+
+
+        private MKPolylineRenderer polylineRenderer;
+        private MKPolyline _route;
+
 		protected override void OnElementChanged(Xamarin.Forms.Platform.iOS.ElementChangedEventArgs<View> e)
         {
             base.OnElementChanged(e);
@@ -37,11 +43,21 @@ namespace Libmemo.iOS.Renderers
                 Map.RegionChanged -= OnRegionChanged;
                 Map.DidUpdateUserLocation -= OnDidUpdateUserLocation;
 
+				if (Map.Overlays != null && Map.Overlays.Length > 0)
+				{
+					Map.RemoveOverlays(Map.Overlays);
+				}
+                Map.OverlayRenderer = null;
+                polylineRenderer = null;
+
                 ClearAnnotations();
                 Map.GetViewForAnnotation = null;
                 Map.CalloutAccessoryControlTapped -= OnCalloutAccessoryControlTapped;
                 Map.DidSelectAnnotationView -= OnDidSelectAnnotationView;
                 Map.DidDeselectAnnotationView -= OnDidDeselectAnnotationView;
+
+                Map.RemoveGestureRecognizer(_tapGestureRecognizer);
+                _tapGestureRecognizer.Dispose();
 
                 e.OldElement.PropertyChanged -= OnPropertyChanged;
             }
@@ -51,10 +67,16 @@ namespace Libmemo.iOS.Renderers
                 Map.RegionChanged += OnRegionChanged;
                 Map.DidUpdateUserLocation += OnDidUpdateUserLocation;
 
+                Map.OverlayRenderer = GetOverlayRenderer;
+
                 Map.GetViewForAnnotation = GetViewForAnnotation;
                 Map.CalloutAccessoryControlTapped += OnCalloutAccessoryControlTapped;
                 Map.DidSelectAnnotationView += OnDidSelectAnnotationView;
                 Map.DidDeselectAnnotationView += OnDidDeselectAnnotationView;
+
+				_tapGestureRecognizer = new UITapGestureRecognizer(OnMapClicked);
+				_tapGestureRecognizer.ShouldReceiveTouch = (recognizer, touch) => !(touch.View is MKIdAnnotationView);
+                Map.AddGestureRecognizer(_tapGestureRecognizer);
 
                 e.NewElement.PropertyChanged += OnPropertyChanged;
 			}
@@ -108,7 +130,15 @@ namespace Libmemo.iOS.Renderers
             RendererCall.RaiseUserPositionChange(new Xamarin.Forms.Maps.Position(e.UserLocation.Coordinate.Latitude, e.UserLocation.Coordinate.Longitude));
         }
 
+		private void OnMapClicked(UITapGestureRecognizer recognizer)
+		{
+			if (recognizer.State != UIGestureRecognizerState.Ended) return;
 
+			var pixelLocation = recognizer.LocationInView(this.Map);
+			var coordinate = this.Map.ConvertPoint(pixelLocation, this.Map);
+
+            RendererCall.RaiseMapClick(new Xamarin.Forms.Maps.Position(coordinate.Latitude, coordinate.Longitude));
+		}
 
 
         private void OnPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -182,6 +212,23 @@ namespace Libmemo.iOS.Renderers
                     }
                 }
 			}
+
+            if (e.PropertyName == Libmemo.CustomElements.CustomMap.Map.RouteProperty.PropertyName)
+            {
+                if (Map.Overlays != null && Map.Overlays.Length > 0) 
+                {
+                    Map.RemoveOverlays(Map.Overlays);
+                }
+
+                if (formsMap.Route != null && formsMap.Route.Count >= 2)
+				{
+                    var coords = FormMap.Route.Select(i => new CoreLocation.CLLocationCoordinate2D(i.Latitude, i.Longitude)).ToArray();
+                    var route = MKPolyline.FromCoordinates(coords);
+                    Map.AddOverlay(route);               
+                }
+
+            }
+
         }
 
         private void OnPinPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -260,9 +307,6 @@ namespace Libmemo.iOS.Renderers
                     LeftCalloutAccessoryView = icon,
                     RightCalloutAccessoryView = UIButton.FromType(UIButtonType.DetailDisclosure)
 				};
-
-                var gr = new UITapGestureRecognizer(() => RendererCall.RaiseInfoWindowClick(pin));
-                annotationView.AddGestureRecognizer(gr);
 			}
             annotationView.CanShowCallout = FormMap.IsShowInfoWindow;
 			return annotationView;
@@ -281,6 +325,21 @@ namespace Libmemo.iOS.Renderers
 				Coordinate = new CoreLocation.CLLocationCoordinate2D(pin.Position.Latitude, pin.Position.Longitude)
 			};
         }
+
+		private MKOverlayRenderer GetOverlayRenderer(MKMapView mapView, IMKOverlay overlay)
+		{
+			if (polylineRenderer == null && !Equals(overlay, null))
+			{
+				polylineRenderer = new MKPolylineRenderer(overlay as MKPolyline)
+				{
+					FillColor = UIColor.Blue,
+					StrokeColor = UIColor.Red,
+					LineWidth = 3,
+					Alpha = 0.4f
+				};
+			}
+			return polylineRenderer;
+		}
 
     }
 
