@@ -29,10 +29,9 @@ namespace Libmemo.Pages
 			};
         }
 
-        private bool sp;
         public ICommand TestCommand => new Command(() =>
         {
-            Route = Pins.Select(i => i.Position).ToList();
+            Route = null;
         });
 
 		private Position _cameraPosition;
@@ -121,12 +120,16 @@ namespace Libmemo.Pages
 
         public ICommand InfoWindowClickedCommand => new Command<CustomElements.CustomMap.Pin>(pin =>
         {
-            var q = 1;
+            Route = Pins.Select(i => new Position(i.Position.Latitude, i.Position.Longitude)).ToList();
         });
 
         public ICommand UserPositionChangedCommand => new Command<Position>(position =>
 		{
-            var q = 1;
+            Route = new List<Position>()
+            {
+                position,
+                Pins[0].Position
+            };
 		});
 
         private int i = 0;

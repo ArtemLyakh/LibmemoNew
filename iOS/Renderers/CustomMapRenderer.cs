@@ -32,7 +32,6 @@ namespace Libmemo.iOS.Renderers
 
 
         private MKPolylineRenderer polylineRenderer;
-        private MKPolyline _route;
 
 		protected override void OnElementChanged(Xamarin.Forms.Platform.iOS.ElementChangedEventArgs<View> e)
         {
@@ -222,6 +221,7 @@ namespace Libmemo.iOS.Renderers
 
                 if (formsMap.Route != null && formsMap.Route.Count >= 2)
 				{
+                    polylineRenderer = null;
                     var coords = FormMap.Route.Select(i => new CoreLocation.CLLocationCoordinate2D(i.Latitude, i.Longitude)).ToArray();
                     var route = MKPolyline.FromCoordinates(coords);
                     Map.AddOverlay(route);               
@@ -326,10 +326,11 @@ namespace Libmemo.iOS.Renderers
 			};
         }
 
-		private MKOverlayRenderer GetOverlayRenderer(MKMapView mapView, IMKOverlay overlay)
+		private MKOverlayRenderer GetOverlayRenderer(MKMapView mapView, IMKOverlay overlayWrapper)
 		{
-			if (polylineRenderer == null && !Equals(overlay, null))
+			if (polylineRenderer == null && !Equals(overlayWrapper, null))
 			{
+                var overlay = ObjCRuntime.Runtime.GetNSObject(overlayWrapper.Handle) as IMKOverlay;
 				polylineRenderer = new MKPolylineRenderer(overlay as MKPolyline)
 				{
 					FillColor = UIColor.Blue,
