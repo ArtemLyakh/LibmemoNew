@@ -45,20 +45,12 @@ namespace Libmemo.Pages.Relatives
 			public ViewModel() : base()
 			{
 				PersonTypeChanged += (sender, type) => this.IsDeadPerson = type == Models.PersonType.Dead;
-				//UserPositionChanged += (sender, position) => {
-				//	this.UserPosition = position;
-				//	this.MapCenter = position;
-				//};
-			}
-
-			public override void OnAppearing()
-			{
-				base.OnAppearing();
-			}
-
-			public override void OnDisappearing()
-			{
-				base.OnDisappearing();
+				UserPositionChanged += (sender, position) => {
+                    UserPosition = position;
+					Latitude = position.Latitude.ToString();
+					Longitude = position.Longitude.ToString();
+					CameraPosition = position;
+				};
 			}
 
 			#region Person type
@@ -132,13 +124,10 @@ namespace Libmemo.Pages.Relatives
 
             private Position? UserPosition { get; set; }
 
-            public ICommand UserPositionChangedCommand => new Command<Position>(position => {
-                UserPosition = position;
-
-                Latitude = position.Latitude.ToString();
-                Longitude = position.Longitude.ToString();
-                CameraPosition = position;
-			});
+			private event EventHandler<Position> UserPositionChanged;
+            public ICommand UserPositionChangedCommand => new Command<Position>(position => {               
+                UserPositionChanged?.Invoke(this, position);
+            });
 
 
 

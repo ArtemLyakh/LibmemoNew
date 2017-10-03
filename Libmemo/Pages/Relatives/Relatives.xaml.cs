@@ -208,9 +208,8 @@ namespace Libmemo.Pages.Relatives
 			});
 
 			public ICommand ItemSelectedCommand => new Command<object>(async selected => {
-                throw new NotImplementedException();
-				//var entry = (Entry)selected;
-				//await App.GlobalPage.Push(new EditRelative(entry.Id));
+				var entry = (Entry)selected;
+                await App.GlobalPage.Push(new Pages.Relatives.EditRelative(entry.Id));
 			});
 		}
     }
