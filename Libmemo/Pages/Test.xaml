@@ -18,6 +18,12 @@
             InfoWindowClickedCommand="{Binding InfoWindowClickedCommand}"
             UserPositionChangedCommand="{Binding UserPositionChangedCommand}"
             MapClickCommand="{Binding MapClickCommand}"
-            />
+            >
+            <x:Arguments>
+                <x:Double>47.23135</x:Double>
+                <x:Double>39.72328</x:Double>
+                <x:Double>500</x:Double>
+            </x:Arguments>
+        </maps:Map>
     </ContentPage.Content>
 </ContentPage>

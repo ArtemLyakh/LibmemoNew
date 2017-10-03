@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Libmemo" xmlns:ffi="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:cv="clr-namespace:Xamarin.Forms;assembly=Xamarin.Forms.CarouselView" x:Class="Libmemo.Pages.Relatives.AddRelative" NavigationPage.HasNavigationBar="False">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Libmemo" xmlns:maps="clr-namespace:Libmemo.CustomElements.CustomMap" xmlns:ffi="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:cv="clr-namespace:Xamarin.Forms;assembly=Xamarin.Forms.CarouselView" x:Class="Libmemo.Pages.Relatives.AddRelative" NavigationPage.HasNavigationBar="False">
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness" iOS="0, 20, 0, 0" />
     </ContentPage.Padding>
@@ -45,7 +45,7 @@
                             <Label VerticalOptions="CenterAndExpand" Text="Тип" HorizontalOptions="Start" />
                             <Picker ItemsSource="{Binding PersonTypeList}" SelectedIndex="{Binding PersonTypeIndex}" HorizontalOptions="FillAndExpand" />
                         </StackLayout>
-                        <!--<StackLayout HorizontalOptions="FillAndExpand" Spacing="10" IsVisible="{Binding IsDeadPerson}">
+                        <StackLayout HorizontalOptions="FillAndExpand" Spacing="10" IsVisible="{Binding IsDeadPerson}">
                             <Label Text="Координаты" HorizontalOptions="CenterAndExpand" FontSize="Large" />
                             <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="FillAndExpand" HeightRequest="200">
                                 <StackLayout Orientation="Vertical" Spacing="10" HorizontalOptions="Start" WidthRequest="{StaticResource titleWidth}">
@@ -58,10 +58,21 @@
                                         <Label Text="{Binding Longitude}" FontSize="Small" HorizontalOptions="CenterAndExpand" />
                                     </StackLayout>
                                 </StackLayout>
-                                <local:CustomMap x:Name="CoorMap" MapType="Street" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" MapCenter="{Binding MapCenter}" Zoom="{Binding Zoom}" IsCameraAnimated="False" IsRotateGesturesEnabled="True" IsScrollGesturesEnabled="False" IsTiltGesturesEnabled="False"
-                                    IsZoomGesturesEnabled="True" UserPositionChangedCommand="{Binding UserPositionChangedCommand}" MyLocationEnabled="{Binding MyLocationEnabled}" />
+                                <maps:Map IsShowingUser="true"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand"
+                                    CameraPosition="{Binding CameraPosition}"
+                                    IsGesturesEnabled="false"
+                                    UserPositionChangedCommand="{Binding UserPositionChangedCommand}"
+                                    >
+                                    <x:Arguments>
+                                        <x:Double>47.23135</x:Double>
+                                        <x:Double>39.72328</x:Double>
+                                        <x:Double>500</x:Double>
+                                    </x:Arguments>
+                                </maps:Map>
                             </StackLayout>
-                        </StackLayout>-->
+                        </StackLayout>
                         <StackLayout HorizontalOptions="FillAndExpand" Spacing="10">
                             <StackLayout Orientation="Horizontal" Spacing="0" HorizontalOptions="FillAndExpand">
                                 <Label Text="Имя: " VerticalOptions="CenterAndExpand" HorizontalOptions="Start" WidthRequest="{StaticResource titleWidth}" />

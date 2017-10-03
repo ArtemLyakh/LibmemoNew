@@ -9,6 +9,7 @@ using System.Windows.Input;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using Xamarin.Forms;
+using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
 
 namespace Libmemo.Pages.Relatives
@@ -53,13 +54,11 @@ namespace Libmemo.Pages.Relatives
 			public override void OnAppearing()
 			{
 				base.OnAppearing();
-				//MyLocationEnabled = true;
 			}
 
 			public override void OnDisappearing()
 			{
 				base.OnDisappearing();
-				//MyLocationEnabled = false;
 			}
 
 			#region Person type
@@ -91,70 +90,57 @@ namespace Libmemo.Pages.Relatives
 
 			private event EventHandler<Models.PersonType> PersonTypeChanged;
 
-			#endregion
+            #endregion
 
-			#region Map
+            #region Map
 
-			//private Position _mapCenter;
-			//public Position MapCenter
-			//{
-			//	get => _mapCenter;
-			//	set
-			//	{
-			//		if (_mapCenter != value)
-			//		{
-			//			_mapCenter = value;
-			//			this.OnPropertyChanged(nameof(MapCenter));
-			//		}
-			//	}
-			//}
+            private Position _cameraPosition;
+            public Position CameraPosition
+            {
+                get => _cameraPosition;
+                set {
+                    if (_cameraPosition != value) {
+                        _cameraPosition = value;
+                        OnPropertyChanged(nameof(CameraPosition));
+                    }
+                }
+            }
 
-			//private float _zoom = 18;
-			//public float Zoom
-			//{
-			//	get => _zoom;
-			//	set
-			//	{
-			//		if (_zoom != value)
-			//		{
-			//			_zoom = value;
-			//			this.OnPropertyChanged(nameof(Zoom));
-			//		}
-			//	}
-			//}
+            private string _latitude = "\u2014";
+            public string Latitude
+            {
+                get => _latitude;
+                set {
+                    if (_latitude != value) {
+                        _latitude = value;
+                        OnPropertyChanged(nameof(Latitude));
+                    }
+                }
+            }
 
-			//private bool _myLocationEnabled = false;
-			//public bool MyLocationEnabled
-			//{
-			//	get => _myLocationEnabled;
-			//	private set
-			//	{
-			//		_myLocationEnabled = value;
-			//		this.OnPropertyChanged(nameof(MyLocationEnabled));
-			//	}
-			//}
+            private string _longitude = "\u2014";
+            public string Longitude
+            {
+                get => _longitude;
+                set {
+                    if (_longitude != value) {
+                        _longitude = value;
+                        OnPropertyChanged(nameof(Longitude));
+                    }
+                }
+            }
 
-			//public ICommand UserPositionChangedCommand => new Command<Position>(position => UserPositionChanged?.Invoke(this, position));
-			//private event EventHandler<Position> UserPositionChanged;
+            private Position? UserPosition { get; set; }
+
+            public ICommand UserPositionChangedCommand => new Command<Position>(position => {
+                UserPosition = position;
+
+                Latitude = position.Latitude.ToString();
+                Longitude = position.Longitude.ToString();
+                CameraPosition = position;
+			});
 
 
-			//private Position? _userPosition = null;
-			//public Position? UserPosition
-			//{
-			//	get { return this._userPosition; }
-			//	private set
-			//	{
-			//		if (this._userPosition != value)
-			//		{
-			//			this._userPosition = value;
-			//			this.OnPropertyChanged(nameof(UserPosition));
-			//			this.OnPropertyChanged(nameof(Latitude));
-			//			this.OnPropertyChanged(nameof(Longitude));
-			//		}
-			//	}
-			//}
-			//public string Latitude => this.UserPosition?.Latitude.ToString() ?? char.ConvertFromUtf32(0x2014);
-			//public string Longitude => this.UserPosition?.Longitude.ToString() ?? char.ConvertFromUtf32(0x2014);
 
 			#endregion
 
@@ -362,7 +348,7 @@ namespace Libmemo.Pages.Relatives
 				}
 			}
 
-			private Stream SchemeStream { get; set; }
+			private byte[] SchemeArray { get; set; }
 			private string _schemeName;
 			public string SchemeName
 			{
@@ -376,46 +362,27 @@ namespace Libmemo.Pages.Relatives
 					}
 				}
 			}
-			private void SetScheme(string name, Stream stream)
+			private void SetScheme(string name, byte[] stream)
 			{
 				ResetScheme();
 
 				SchemeName = name;
-				SchemeStream = stream;
+				SchemeArray = stream;
 			}
 			private void ResetScheme()
 			{
 				SchemeName = null;
-
-				SchemeStream?.Dispose();
-				SchemeStream = null;
+				SchemeArray = null;
 			}
             public ICommand SelectSchemeCommand => new Command(async () => {
-               // await NewSelectSchemeCommand();
-            	//var file = await Plugin.FilePicker.CrossFilePicker.Current.PickFile();
-            	//if (file == null) return;
+            	var file = await Plugin.FilePicker.CrossFilePicker.Current.PickFile();
+                if (file == null || file.DataArray.Length == 0) return;
 
-            	//var fileName = !string.IsNullOrWhiteSpace(file.FileName)
-            	//					  ? file.FileName
-            	//					  : "Файл";
+            	var fileName = !string.IsNullOrWhiteSpace(file.FileName)
+            						  ? file.FileName
+            						  : "Файл";
 
-            	//Stream stream;
-            	//try
-            	//{
-            	//	stream = DependencyService.Get<IFileStreamPicker>().GetStream(file.FilePath);
-            	//}
-            	//catch
-            	//{
-            	//	App.ToastNotificator.Show("Ошибка выбора файла");
-            	//	return;
-            	//}
-
-            	//if (stream.Length > 2 * 1024 * 1024)
-            	//{
-            	//	App.ToastNotificator.Show($"Размер файла не должен превышать 2 МБ ({stream.Length / 1024 / 1024} МБ)");
-            	//	return;
-            	//}
-            	//SetScheme(fileName, stream);
+                SetScheme(fileName, file.DataArray);
             });
 
 
@@ -473,11 +440,11 @@ namespace Libmemo.Pages.Relatives
 				if (cancelTokenSource != null) return;
 
 
-				//if (this.IsDeadPerson && !this.UserPosition.HasValue)
-				//{
-				//	App.ToastNotificator.Show("Ошибка определения местоположения");
-				//	return;
-				//}
+				if (this.IsDeadPerson && !this.UserPosition.HasValue)
+				{
+					App.ToastNotificator.Show("Ошибка определения местоположения");
+					return;
+				}
 				if (string.IsNullOrWhiteSpace(this.FirstName))
 				{
 					App.ToastNotificator.Show("Поле \"Имя\" не заполнено");
@@ -514,8 +481,8 @@ namespace Libmemo.Pages.Relatives
 
 				if (this.IsDeadPerson)
 				{
-					//content.Add(new StringContent(this.UserPosition.Value.Latitude.ToString(CultureInfo.InvariantCulture)), "latitude");
-					//content.Add(new StringContent(this.UserPosition.Value.Longitude.ToString(CultureInfo.InvariantCulture)), "longitude");
+					content.Add(new StringContent(this.UserPosition.Value.Latitude.ToString(CultureInfo.InvariantCulture)), "latitude");
+					content.Add(new StringContent(this.UserPosition.Value.Longitude.ToString(CultureInfo.InvariantCulture)), "longitude");
 
 					if (this.DateDeath.HasValue)
 						content.Add(new StringContent(this.DateDeath.Value.ToString("yyyy-MM-dd")), "date_death");
@@ -525,9 +492,9 @@ namespace Libmemo.Pages.Relatives
 						content.Add(new StringContent(this.Height.Value.ToString(CultureInfo.InvariantCulture)), "height");
 					if (this.Width.HasValue)
 						content.Add(new StringContent(this.Width.Value.ToString(CultureInfo.InvariantCulture)), "width");
-					if (this.SchemeStream != null)
+					if (this.SchemeArray != null)
 					{
-						content.Add(new StreamContent(this.SchemeStream), "scheme", this.SchemeName);
+                        content.Add(new ByteArrayContent(this.SchemeArray), "scheme", this.SchemeName);
 					}
 					if (!string.IsNullOrWhiteSpace(this.Section))
 					{

@@ -68,6 +68,11 @@ namespace Libmemo.CustomElements.CustomMap
         public Map() : base() { }
         public Map(MapSpan region) : base(region) { }
 
+        public Map(double latitude, double longitude, double height) 
+            : base(MapSpan.FromCenterAndRadius(new Position(latitude, longitude), new Distance(height))) 
+        {
+            
+        }
 
 
         public Position CameraPosition
