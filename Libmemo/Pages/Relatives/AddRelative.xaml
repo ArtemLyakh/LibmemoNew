@@ -103,7 +103,7 @@
                                             <RowDefinition Height="*" />
                                             <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
-                                        <ffi:CachedImage Grid.RowSpan="2" HorizontalOptions="Fill" DownsampleToViewSize="True" Source="{Binding PhotoSource}">
+                                        <ffi:CachedImage Grid.RowSpan="2" HorizontalOptions="Fill" Source="{Binding PhotoSource}">
                                         </ffi:CachedImage>
                                         <StackLayout Grid.Row="1" BackgroundColor="#80333333" Spacing="10" Padding="10" Orientation="Horizontal">
                                             <local:FixedButton Text="Выбрать фото" Command="{Binding PickPhotoCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#333333" TextColor="White" BorderWidth="5" BorderColor="White" />

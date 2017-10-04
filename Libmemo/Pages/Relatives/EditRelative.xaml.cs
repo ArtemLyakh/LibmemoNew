@@ -360,7 +360,7 @@ namespace Libmemo.Pages.Relatives
 				MakePhotoCommand = new Command(async () => {
 					if (CrossMedia.Current.IsCameraAvailable && CrossMedia.Current.IsTakePhotoSupported)
 					{
-						var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions { SaveToAlbum = false, CompressionQuality = 90, PhotoSize = PhotoSize.Medium });
+						var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions { SaveToAlbum = false, PhotoSize = PhotoSize.Medium });
 						if (file == null) return;
 
 						var index = Photos.FindIndex(j => j.Item1 == i.Item1);
@@ -400,7 +400,7 @@ namespace Libmemo.Pages.Relatives
 					}),
 					MakePhotoCommand = new Command(async () => {
 						if (CrossMedia.Current.IsCameraAvailable && CrossMedia.Current.IsTakePhotoSupported) {
-							var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions { SaveToAlbum = false, CompressionQuality = 90, PhotoSize = PhotoSize.Medium });
+							var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions { SaveToAlbum = false, PhotoSize = PhotoSize.Medium });
 							if (file == null) return;
 
 							(ImageSource, int?) item = (ImageSource.FromFile(file.Path), null);
