@@ -5,6 +5,9 @@ namespace Libmemo
 {
     public partial class App : Application
     {
+		public static double ScreenHeight;
+		public static double ScreenWidth;
+
 		#region Services
 		private static ToastNotificator _toastNotificator;
 		public static ToastNotificator ToastNotificator
@@ -40,6 +43,7 @@ namespace Libmemo
         {
             InitializeComponent();
             //TK.CustomMap.Api.Google.GmsDirection.Init("AIzaSyCFwd7VMckhN6zZdbmCfGO0WXvJyyqh1OA");
+         
 
             MainPage = new Pages.Core.Main();
         }

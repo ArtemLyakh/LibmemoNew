@@ -80,6 +80,7 @@ namespace Libmemo.Droid.Renderers
             _googleMap.InfoWindowClose += OnInfoWindowClosed;
             _googleMap.MyLocationChange += OnUserLocationChanged;
             _googleMap.InfoWindowClick += OnInfoWindowClicked;
+
         }
 		private void InvokeOnMapReadyBaseClassHack(GoogleMap googleMap)
 		{
@@ -221,6 +222,34 @@ namespace Libmemo.Droid.Renderers
 			_googleMap.UiSettings.MapToolbarEnabled = false;
 			_googleMap.UiSettings.CompassEnabled = false;
 			_googleMap.UiSettings.ZoomControlsEnabled = false;
+
+
+			var map = Element as CustomElements.CustomMap.Map;
+			_googleMap.UiSettings.TiltGesturesEnabled = map.IsGesturesEnabled;
+			_googleMap.UiSettings.ZoomGesturesEnabled = map.IsGesturesEnabled;
+			_googleMap.UiSettings.RotateGesturesEnabled = map.IsGesturesEnabled;
+			_googleMap.UiSettings.ScrollGesturesEnabled = map.IsGesturesEnabled;
+
+			foreach (var pinMarker in PinsMarkers)
+			{
+				pinMarker.Key.PropertyChanged -= PinPropertyChanged;
+				pinMarker.Value.Remove();
+			}
+			PinsMarkers.Clear();
+
+			if (map.Pins != null)
+			{
+				foreach (var pin in map.Pins)
+				{
+					pin.PropertyChanged += PinPropertyChanged;
+					var marker = GetMarker(pin);
+					PinsMarkers[pin] = marker;
+				}
+			}
+
+			var latLng = new LatLng(map.CameraPosition.Latitude, map.CameraPosition.Longitude);
+			var zoom = _googleMap.CameraPosition.Zoom;
+			_googleMap.AnimateCamera(CameraUpdateFactory.NewLatLngZoom(latLng, zoom));
         }
 
 

@@ -379,14 +379,21 @@
                          RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=0,Constant=0}"
                          RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=0,Constant=0}"
                          BackgroundColor="#80000000"
-                         Padding="30"
                          IsVisible="{Binding IsMapVisible}"
                          >
+                <StackLayout.Padding>
+                    <OnPlatform x:TypeArguments="Thickness" iOS="30, 30, 30, 30" Android="30, 30, 30, 30" />
+                </StackLayout.Padding>
+                <BoxView x:Name="iOSHack" BackgroundColor="#00000000" HorizontalOptions="FillAndExpand" WidthRequest="{x:Static local:App.ScreenWidth}" HeightRequest="{x:Static local:App.ScreenHeight}">
+                    <BoxView.IsVisible>
+                        <OnPlatform x:TypeArguments="x:Boolean" iOS="true" Android="false" />
+                    </BoxView.IsVisible>
+                </BoxView>
                 <StackLayout HorizontalOptions="FillAndExpand"
                              VerticalOptions="FillAndExpand"
                              BackgroundColor="White"
-                             Padding="0,15"
-                             Spacing="15"
+                             Padding="0,5"
+                             Spacing="5"
                              >
                     <Label Text="{Binding Coordinates}"
                                FontSize="Medium"
@@ -409,7 +416,8 @@
                                     </x:Arguments>
                                 </maps:Map>
                     <local:FixedButton Text="Закрыть" 
-                                HorizontalOptions="CenterAndExpand"
+                                HorizontalOptions="FillAndExpand"
+                        Margin="10"
                                 Command="{Binding HideMap}"
                                 BackgroundColor="#333333"
                                 TextColor="White" 

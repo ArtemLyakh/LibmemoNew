@@ -20,6 +20,9 @@ namespace Libmemo.iOS
             Plugin.Toasts.ToastNotification.Init();
             Xamarin.FormsMaps.Init();
 
+			App.ScreenWidth = UIScreen.MainScreen.Bounds.Width;
+			App.ScreenHeight = UIScreen.MainScreen.Bounds.Height;
+
             GetPermissions(app);
 
             LoadApplication(new App());

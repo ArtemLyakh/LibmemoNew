@@ -78,6 +78,16 @@ namespace Libmemo.iOS.Renderers
                 Map.AddGestureRecognizer(_tapGestureRecognizer);
 
                 e.NewElement.PropertyChanged += OnPropertyChanged;
+
+
+
+                var formsMap = e.NewElement as CustomElements.CustomMap.Map;
+
+                SetGestures(formsMap.IsGesturesEnabled);
+                if (formsMap.CameraPosition != default(Xamarin.Forms.Maps.Position))
+                    SetCameraPosition(formsMap.CameraPosition, false);
+                SetPins(formsMap.Pins);
+
 			}
 
         }
@@ -147,31 +157,17 @@ namespace Libmemo.iOS.Renderers
             var formsMap = (Libmemo.CustomElements.CustomMap.Map)sender;
 
 			if (e.PropertyName == Libmemo.CustomElements.CustomMap.Map.CameraPositionProperty.PropertyName) {
-                Map.SetCenterCoordinate(new CoreLocation.CLLocationCoordinate2D(formsMap.CameraPosition.Latitude, formsMap.CameraPosition.Longitude), true);
+                SetCameraPosition(formsMap.CameraPosition);
 				return;
 			}
 
             if (e.PropertyName == Libmemo.CustomElements.CustomMap.Map.IsGesturesEnabledProperty.PropertyName) {
-                Map.ZoomEnabled = formsMap.IsGesturesEnabled;
-                Map.PitchEnabled = formsMap.IsGesturesEnabled;
-                Map.RotateEnabled = formsMap.IsGesturesEnabled;
-                Map.ScrollEnabled = formsMap.IsGesturesEnabled;
+                SetGestures(formsMap.IsGesturesEnabled);
                 return;
             }
 
             if (e.PropertyName == Libmemo.CustomElements.CustomMap.Map.PinsProperty.PropertyName) {
-                ClearAnnotations();
-
-                if (formsMap.Pins != null)
-				{
-					foreach (var pin in formsMap.Pins)
-					{
-						pin.PropertyChanged += OnPinPropertyChanged;
-                        var anno = GetAnnotation(pin);
-						Map.AddAnnotation(anno);
-						PinAnnotations[pin] = anno;
-					}
-				}
+                SetPins(formsMap.Pins);
 				return;
             }
 
@@ -342,6 +338,36 @@ namespace Libmemo.iOS.Renderers
 			return polylineRenderer;
 		}
 
+
+
+        private void SetGestures(bool isEnabled)
+        {
+            Map.ZoomEnabled = isEnabled;
+			Map.PitchEnabled = isEnabled;
+			Map.RotateEnabled = isEnabled;
+			Map.ScrollEnabled = isEnabled;
+        }
+
+        private void SetCameraPosition(Xamarin.Forms.Maps.Position position, bool animate = true)
+        {
+            Map.SetCenterCoordinate(new CoreLocation.CLLocationCoordinate2D(position.Latitude, position.Longitude), animate);
+        }
+
+        private void SetPins(IEnumerable<CustomElements.CustomMap.Pin> pins)
+        {
+			ClearAnnotations();
+
+			if (pins != null)
+			{
+				foreach (var pin in pins)
+				{
+					pin.PropertyChanged += OnPinPropertyChanged;
+					var anno = GetAnnotation(pin);
+					Map.AddAnnotation(anno);
+					PinAnnotations[pin] = anno;
+				}
+			}
+        }
     }
 
     public class MKIdPointAnnotation : MKPointAnnotation

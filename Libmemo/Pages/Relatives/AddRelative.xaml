@@ -48,7 +48,7 @@
                         <StackLayout HorizontalOptions="FillAndExpand" Spacing="10" IsVisible="{Binding IsDeadPerson}">
                             <Label Text="Координаты" HorizontalOptions="CenterAndExpand" FontSize="Large" />
                             <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="FillAndExpand" HeightRequest="200">
-                                <StackLayout Orientation="Vertical" Spacing="10" HorizontalOptions="Start" WidthRequest="{StaticResource titleWidth}">
+                                <StackLayout Orientation="Vertical" Spacing="10" HorizontalOptions="Start" WidthRequest="150">
                                     <StackLayout Orientation="Vertical" Spacing="0">
                                         <Label Text="Широта:" FontSize="Small" HorizontalOptions="CenterAndExpand" />
                                         <Label Text="{Binding Latitude}" FontSize="Small" HorizontalOptions="CenterAndExpand" />

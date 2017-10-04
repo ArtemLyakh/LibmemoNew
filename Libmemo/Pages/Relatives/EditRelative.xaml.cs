@@ -33,6 +33,7 @@ namespace Libmemo.Pages.Relatives
 		{
 			base.OnAppearing();
 			Model.OnAppearing();
+            iOSHack.IsVisible = false;
 		}
 		protected override void OnDisappearing()
 		{
@@ -70,6 +71,11 @@ namespace Libmemo.Pages.Relatives
 				ResetCommand.Execute(null);
 			}
 
+            public override void OnAppearing()
+            {
+                base.OnAppearing();
+                IsMapVisible = false;
+            }
 
 			#region Person type
 
@@ -189,7 +195,7 @@ namespace Libmemo.Pages.Relatives
 			}
 
 
-			private bool _isMapVisible = false;
+            private bool _isMapVisible = true;
 			public bool IsMapVisible
 			{
 				get => _isMapVisible;
@@ -201,7 +207,11 @@ namespace Libmemo.Pages.Relatives
 			}
 
 			public ICommand HideMap => new Command(() => IsMapVisible = false);
-			public ICommand ShowMap => new Command(() => IsMapVisible = true);
+            public ICommand ShowMap => new Command(() => {
+                IsMapVisible = true;
+				if (Pin.Position != default(Position))
+					CameraPosition = Pin.Position;
+            });
 
 
 			#endregion
