@@ -360,7 +360,7 @@ namespace Libmemo.Pages.Relatives
 				MakePhotoCommand = new Command(async () => {
 					if (CrossMedia.Current.IsCameraAvailable && CrossMedia.Current.IsTakePhotoSupported)
 					{
-						var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions { SaveToAlbum = false });
+						var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions { SaveToAlbum = false, CompressionQuality = 90, PhotoSize = PhotoSize.Medium });
 						if (file == null) return;
 
 						var index = Photos.FindIndex(j => j.Item1 == i.Item1);
@@ -400,7 +400,7 @@ namespace Libmemo.Pages.Relatives
 					}),
 					MakePhotoCommand = new Command(async () => {
 						if (CrossMedia.Current.IsCameraAvailable && CrossMedia.Current.IsTakePhotoSupported) {
-							var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions { SaveToAlbum = false });
+							var file = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions { SaveToAlbum = false, CompressionQuality = 90, PhotoSize = PhotoSize.Medium });
 							if (file == null) return;
 
 							(ImageSource, int?) item = (ImageSource.FromFile(file.Path), null);
@@ -718,7 +718,7 @@ namespace Libmemo.Pages.Relatives
 						content.Add(new StringContent(this.Width.Value.ToString(CultureInfo.InvariantCulture)), "width");
 					if (this.SchemeArray != null)
 					{
-                        content.Add(new ByteArrayContent(this.SchemeArray), "scheme", this.SchemeName);
+                        content.Add(new ByteArrayContent(this.SchemeArray), "scheme", $"file{Path.GetExtension(SchemeName)}");
 					}
 					if (!string.IsNullOrWhiteSpace(this.Section))
 					{
