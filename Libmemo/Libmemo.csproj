@@ -73,6 +73,9 @@
     <EmbeddedResource Include="Pages\Relatives\EditRelative.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Map\Map.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -148,6 +151,9 @@
     <Compile Include="CustomElements\CustomMap\PinImage.cs" />
     <Compile Include="Pages\Relatives\EditRelative.xaml.cs">
       <DependentUpon>EditRelative.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Map\Map.xaml.cs">
+      <DependentUpon>Map.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

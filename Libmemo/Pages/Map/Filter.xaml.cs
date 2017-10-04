@@ -472,8 +472,7 @@ namespace Libmemo.Pages.Map
 
 				var list = elements.ToList();
 
-                throw new NotImplementedException();
-				//await App.GlobalPage.Push(new Pages.Map.Map(list));
+				await App.GlobalPage.Push(new Pages.Map.Map(list));
 			});
 
 
