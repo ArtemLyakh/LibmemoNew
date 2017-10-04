@@ -115,12 +115,12 @@
                             <Label Text="Координаты" FontSize="Medium" HorizontalOptions="CenterAndExpand"/>
                             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                 <Label Text="{Binding Coordinates}"
-                                       HorizontalOptions="StartAndExpand"
-                                       HorizontalTextAlignment="Center"
+                                       HorizontalOptions="FillAndExpand"
+                                       HorizontalTextAlignment="Start"
                                        VerticalOptions="CenterAndExpand"
                                        />
                                 <local:FixedButton Text="Изменить"
-                                        HorizontalOptions="End"
+                                        HorizontalOptions="FillAndExpand"
                                         VerticalOptions="CenterAndExpand"
                                         Command="{Binding ShowMap}"
                                         BackgroundColor="#333333"
@@ -221,7 +221,7 @@
                                                      >
                                             <local:FixedButton Text="Выбрать фото"
                                                 Command="{Binding PickPhotoCommand}"
-                                                HorizontalOptions="StartAndExpand"
+                                                HorizontalOptions="FillAndExpand"
                                                 BackgroundColor="#333333"
                                                 TextColor="White" 
                                                 BorderWidth="5"
@@ -236,7 +236,7 @@
                                                 BorderColor="White"
                                                 />
                                             <StackLayout
-                                                HorizontalOptions="EndAndExpand"
+                                                HorizontalOptions="Fill"
                                                 VerticalOptions="CenterAndExpand"
                                                 IsVisible="{Binding IsDeleteAviliable}"
                                                 BackgroundColor="White"
@@ -345,12 +345,12 @@
                                             IsVisible="{Binding IsSchemeCanDownload}"
                                             >
                                 <Label Text="Схема захоронения:"
-                                        HorizontalOptions="Start"
+                                        HorizontalOptions="Fill"
                                         VerticalOptions="CenterAndExpand"
                                         />
                                 <local:FixedButton Text="Открыть"
                                         Command="{Binding SchemeDownloadCommand}"
-                                        HorizontalOptions="CenterAndExpand"
+                                        HorizontalOptions="FillAndExpand"
                                         BackgroundColor="#333333"
                                         TextColor="White" 
                                         />
@@ -359,7 +359,7 @@
                                 <local:FixedButton Text="Выбрать"
                                         Command="{Binding SelectSchemeCommand}"
                                         VerticalOptions="CenterAndExpand"
-                                        HorizontalOptions="Start"
+                                        HorizontalOptions="FillAndExpand"
                                         BackgroundColor="#333333"
                                         TextColor="White" 
                                         />
@@ -379,11 +379,9 @@
                          RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=0,Constant=0}"
                          RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=0,Constant=0}"
                          BackgroundColor="#80000000"
+                Padding="30"
                          IsVisible="{Binding IsMapVisible}"
                          >
-                <StackLayout.Padding>
-                    <OnPlatform x:TypeArguments="Thickness" iOS="30, 30, 30, 30" Android="30, 30, 30, 30" />
-                </StackLayout.Padding>
                 <BoxView x:Name="iOSHack" BackgroundColor="#00000000" HorizontalOptions="FillAndExpand" WidthRequest="{x:Static local:App.ScreenWidth}" HeightRequest="{x:Static local:App.ScreenHeight}">
                     <BoxView.IsVisible>
                         <OnPlatform x:TypeArguments="x:Boolean" iOS="true" Android="false" />

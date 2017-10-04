@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Windows.Input;
+using Plugin.FilePicker.Abstractions;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using Xamarin.Forms;
@@ -364,7 +365,14 @@ namespace Libmemo.Pages.Relatives
 				SchemeArray = null;
 			}
             public ICommand SelectSchemeCommand => new Command(async () => {
-            	var file = await Plugin.FilePicker.CrossFilePicker.Current.PickFile();
+                FileData file;
+                try {
+                    file = await Plugin.FilePicker.CrossFilePicker.Current.PickFile();
+                } catch {
+                    App.ToastNotificator.Show("Не удалось выбрать файл");
+                    return;
+                }
+            	
                 if (file == null || file.DataArray.Length == 0) return;
 
             	var fileName = !string.IsNullOrWhiteSpace(file.FileName)

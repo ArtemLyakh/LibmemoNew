@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Windows.Input;
+using Plugin.FilePicker.Abstractions;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using Xamarin.Forms;
@@ -444,7 +445,7 @@ namespace Libmemo.Pages.Relatives
 				}
 			}
 
-			private Stream SchemeStream { get; set; }
+			private byte[] SchemeArray { get; set; }
 			private string _schemeName;
 			public string SchemeName
 			{
@@ -458,47 +459,37 @@ namespace Libmemo.Pages.Relatives
 					}
 				}
 			}
-			private void SetScheme(string name, Stream stream)
+			private void SetScheme(string name, byte[] stream)
 			{
-				SchemeUrl = null;
 				ResetScheme();
 
 				SchemeName = name;
-				SchemeStream = stream;
+				SchemeArray = stream;
 			}
 			private void ResetScheme()
 			{
 				SchemeName = null;
-
-				SchemeStream?.Dispose();
-				SchemeStream = null;
+				SchemeArray = null;
 			}
-
 			public ICommand SelectSchemeCommand => new Command(async () => {
-				//var file = await Plugin.FilePicker.CrossFilePicker.Current.PickFile();
-				//if (file == null) return;
+				FileData file;
+				try
+				{
+					file = await Plugin.FilePicker.CrossFilePicker.Current.PickFile();
+				}
+				catch
+				{
+					App.ToastNotificator.Show("Не удалось выбрать файл");
+					return;
+				}
 
-				//var fileName = !string.IsNullOrWhiteSpace(file.FileName)
-				//					  ? file.FileName
-				//					  : "Файл";
+				if (file == null || file.DataArray.Length == 0) return;
 
-				//Stream stream;
-				//try
-				//{
-				//	stream = DependencyService.Get<IFileStreamPicker>().GetStream(file.FilePath);
-				//}
-				//catch
-				//{
-				//	App.ToastNotificator.Show("Ошибка выбора файла");
-				//	return;
-				//}
+				var fileName = !string.IsNullOrWhiteSpace(file.FileName)
+									  ? file.FileName
+									  : "Файл";
 
-				//if (stream.Length > 2 * 1024 * 1024)
-				//{
-				//	App.ToastNotificator.Show($"Размер файла не должен превышать 2 МБ ({stream.Length / 1024 / 1024} МБ)");
-				//	return;
-				//}
-				//SetScheme(fileName, stream);
+				SetScheme(fileName, file.DataArray);
 			});
 
 			private Uri _schemeUrl = null;
@@ -692,24 +683,25 @@ namespace Libmemo.Pages.Relatives
 				if (this.DateBirth.HasValue)
 					content.Add(new StringContent(this.DateBirth.Value.ToString("yyyy-MM-dd")), "date_birth");
 
-				//foreach (var photo in Photos)
-				//{
-				//	if (photo.Item1 is FileImageSource && !photo.Item2.HasValue)
-				//	{
-				//		var result = await DependencyService.Get<IFileStreamPicker>().GetResizedJpegAsync((photo.Item1 as FileImageSource).File, 1000, 1000);
-				//		content.Add(new ByteArrayContent(result), "new_photos[]", "photo.jpg");
-				//	}
-				//	else if (photo.Item1 is FileImageSource && photo.Item2.HasValue)
-				//	{
-				//		var result = await DependencyService.Get<IFileStreamPicker>().GetResizedJpegAsync((photo.Item1 as FileImageSource).File, 1000, 1000);
-				//		content.Add(new ByteArrayContent(result), $"update_photos[{photo.Item2.Value}]", "photo.jpg");
-				//	}
-				//	else if (photo.Item1 is UriImageSource && photo.Item2.HasValue)
-				//	{
-				//		content.Add((new StringContent(photo.Item2.Value.ToString())), "keep_photos[]");
-				//	}
 
-				//}
+				foreach (var photo in Photos)
+				{
+					if (photo.Item1 is FileImageSource && !photo.Item2.HasValue)
+					{
+						var result = DependencyService.Get<IFileStreamPicker>().GetFile((photo.Item1 as FileImageSource).File);
+                        content.Add(new StreamContent(result.Stream), "new_photos[]", result.Name);
+					}
+					else if (photo.Item1 is FileImageSource && photo.Item2.HasValue)
+					{
+						var result = DependencyService.Get<IFileStreamPicker>().GetFile((photo.Item1 as FileImageSource).File);
+                        content.Add(new StreamContent(result.Stream), $"update_photos[{photo.Item2.Value}]", result.Name);
+					}
+					else if (photo.Item1 is UriImageSource && photo.Item2.HasValue)
+					{
+						content.Add((new StringContent(photo.Item2.Value.ToString())), "keep_photos[]");
+					}
+
+				}
 
 				if (this.IsDeadPerson)
 				{
@@ -724,9 +716,9 @@ namespace Libmemo.Pages.Relatives
 						content.Add(new StringContent(this.Height.Value.ToString(CultureInfo.InvariantCulture)), "height");
 					if (this.Width.HasValue)
 						content.Add(new StringContent(this.Width.Value.ToString(CultureInfo.InvariantCulture)), "width");
-					if (this.SchemeStream != null)
+					if (this.SchemeArray != null)
 					{
-						content.Add(new StreamContent(this.SchemeStream), "scheme", this.SchemeName);
+                        content.Add(new ByteArrayContent(this.SchemeArray), "scheme", this.SchemeName);
 					}
 					if (!string.IsNullOrWhiteSpace(this.Section))
 					{
