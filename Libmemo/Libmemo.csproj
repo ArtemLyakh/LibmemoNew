@@ -155,6 +155,8 @@
     <Compile Include="Pages\Map\Map.xaml.cs">
       <DependentUpon>Map.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dependencies\ITextToSpeech.cs" />
+    <Compile Include="Helpers\TextToSpeech.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\" />

@@ -164,7 +164,7 @@
                                              WidthRequest="40"
                                              HeightRequest="40"
                                              Aspect="AspectFill"
-                                             IsVisible="{Binding IsShowOnlySelected}"
+                                             IsVisible="{Binding IsShowAllPinsVisible}"
                                              >
                                 <ffi:CachedImage.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding ShowPinsCommand}" />
@@ -174,7 +174,7 @@
                                              WidthRequest="40"
                                              HeightRequest="40"
                                              Aspect="AspectFill"
-                                             IsVisible="{Binding IsShowHideAnotherButton}"
+                                             IsVisible="{Binding IsHideAllPinsVisible}"
                                              >
                                 <Image.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding HidePinsCommand}" />
@@ -225,17 +225,17 @@
                                              WidthRequest="40"
                                              HeightRequest="40"
                                              Aspect="AspectFill"
-                                             IsVisible="{Binding Path=SelectedPin, Mode=OneWay, Converter={StaticResource IsPinSpeakable}"
+                                             IsVisible="{Binding IsShowSpeakBtn}"
                                              >
                                 <ffi:CachedImage.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding StartTTSOnSelectedPinCommand}" />
+                                    <TapGestureRecognizer Command="{Binding StartTTSCommand}" />
                                 </ffi:CachedImage.GestureRecognizers>
                             </ffi:CachedImage>
                             <ffi:CachedImage Source="sound_stop.png"
                                              WidthRequest="40"
                                              HeightRequest="40"
                                              Aspect="AspectFill"
-                                             IsVisible="{Binding Path=CurrentPlayed, Mode=OneWay, Converter={StaticResource IsPropertyNullConverter}}"
+                                             IsVisible="{Binding IsTTSPlaying}"
                                              >
                                 <ffi:CachedImage.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding StopTTSCommand}" />

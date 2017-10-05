@@ -250,6 +250,7 @@ namespace Libmemo.Droid.Renderers
 			var latLng = new LatLng(map.CameraPosition.Latitude, map.CameraPosition.Longitude);
 			var zoom = _googleMap.CameraPosition.Zoom;
 			_googleMap.AnimateCamera(CameraUpdateFactory.NewLatLngZoom(latLng, zoom));
+           
         }
 
 
@@ -363,7 +364,7 @@ namespace Libmemo.Droid.Renderers
 									}
                                 }
 							}
-							catch (Exception e)
+							catch
 							{
                                 bitmap = null;
 							}

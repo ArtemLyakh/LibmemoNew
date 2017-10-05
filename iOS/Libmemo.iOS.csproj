@@ -178,6 +178,7 @@
     <Compile Include="Dependencies\IToastNotificationsImplementation.cs" />
     <Compile Include="Dependencies\IFileStreamPickerImplementation.cs" />
     <Compile Include="Renderers\CustomMapRenderer.cs" />
+    <Compile Include="Dependencies\TextToSpeechImplementation.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="calc_route.png" />

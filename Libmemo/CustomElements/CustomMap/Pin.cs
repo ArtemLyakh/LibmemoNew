@@ -30,7 +30,7 @@ namespace Libmemo.CustomElements.CustomMap
             this.Text = text;
             this.Icon = icon;
             this.Position = position;
-            this.PinImage = PinImage;
+            this.PinImage = pinImage;
         }
 
 		public override int GetHashCode()

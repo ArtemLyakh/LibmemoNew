@@ -43,28 +43,43 @@ namespace Libmemo.Pages.Map
         {
             private Dictionary<int, Models.DeadPerson> Data;
 
+            private CustomElements.CustomMap.Pin GetPin(Models.DeadPerson person) => new CustomElements.CustomMap.Pin(
+                person.Id,
+                person.FIO,
+                person.DateBirth.HasValue && person.DateDeath.HasValue
+                    ? $"{person.DateBirth.Value.ToString("dd.MM.yyyy")}\u2014{person.DateDeath.Value.ToString("dd.MM.yyyy")}"
+                    : string.Empty,
+                person.Icon,
+                new Position(person.Latitude, person.Longitude),
+                !string.IsNullOrWhiteSpace(person.Text) ? CustomElements.CustomMap.PinImage.Speakable : CustomElements.CustomMap.PinImage.Default
+            );
 
             public ViewModel(List<Models.DeadPerson> persons) : base()
             {
                 Data = persons.ToDictionary(i => i.Id);
 
-                Pins = persons.Select(i => new CustomElements.CustomMap.Pin(
-                    i.Id,
-                    i.FIO,
-                    i.DateBirth.HasValue && i.DateDeath.HasValue
-                        ? $"{i.DateBirth.Value.ToString("dd.MM.yyyy")}\u2014{i.DateDeath.Value.ToString("dd.MM.yyyy")}"
-                        : string.Empty,
-                    i.Icon,
-                    new Position(i.Latitude, i.Longitude),
-                    !string.IsNullOrWhiteSpace(i.Text) ? CustomElements.CustomMap.PinImage.Speakable : CustomElements.CustomMap.PinImage.Default
-                )).ToList();
+                Pins = persons.Select(i => GetPin(i)).ToList();
 
 
                 FollowUser = false;
                 UserPositionChanged += (sender, e) => UserPosition = e;
+
+
+                SelectedPinChanged += (sender, e) => IsHideAllPinsVisible = !IsShowAllPinsVisible && e != null;
+                SelectedPinChanged += (sender, e) => IsShowSpeakBtn = e != null && !string.IsNullOrWhiteSpace(Data[e.Id].Text);
             }
 
+            public override void OnAppearing()
+            {
+                base.OnAppearing();
+                Helpers.TextToSpeech.Current.TTSStopped += OnTextToSpeechStopedSpeaking;
+            }
 
+            public override void OnDisappearing()
+            {
+                base.OnDisappearing();
+                Helpers.TextToSpeech.Current.TTSStopped -= OnTextToSpeechStopedSpeaking;
+            }
 
             private const string DefaultTitle = "Карта";
 
@@ -142,6 +157,7 @@ namespace Libmemo.Pages.Map
                 }
             }
 
+            private event EventHandler<CustomElements.CustomMap.Pin> SelectedPinChanged;
             private CustomElements.CustomMap.Pin _selectedPin;
             public CustomElements.CustomMap.Pin SelectedPin
             {
@@ -152,6 +168,7 @@ namespace Libmemo.Pages.Map
                     {
                         _selectedPin = value;
                         OnPropertyChanged(nameof(SelectedPin));
+                        SelectedPinChanged?.Invoke(this, value);
                     }
                 }
             }
@@ -207,12 +224,103 @@ namespace Libmemo.Pages.Map
 
 
 
+            private bool _isShowAllPinsVisible = false;
+            public bool IsShowAllPinsVisible
+            {
+                get => _isShowAllPinsVisible;
+                set {
+                    if (_isShowAllPinsVisible != value) {
+                        _isShowAllPinsVisible = value;
+                        OnPropertyChanged(nameof(IsShowAllPinsVisible));
+                    }
+                }
+            }
+
+            private bool _isHideAllPinnVisible = false;
+			public bool IsHideAllPinsVisible
+			{
+				get => _isHideAllPinnVisible;
+				set
+				{
+					if (_isHideAllPinnVisible != value)
+					{
+						_isHideAllPinnVisible = value;
+						OnPropertyChanged(nameof(IsHideAllPinsVisible));
+					}
+				}
+			}
+
+
+			public ICommand HidePinsCommand => new Command(() => {
+                if (SelectedPin == null) return;
+
+                Pins = new List<CustomElements.CustomMap.Pin>() {
+                    SelectedPin
+                };
+                IsShowAllPinsVisible = true;
+			});
+
+
+			public ICommand ShowPinsCommand => new Command(() => {
+                Pins = Data.Select(i => GetPin(i.Value)).ToList();
+
+                IsShowAllPinsVisible = false;
+			});
 
 
 
 
 
 
+
+
+
+			private bool _isShowSpeakBtn = false;
+			public bool IsShowSpeakBtn
+			{
+				get => _isShowSpeakBtn;
+				set
+				{
+					if (_isShowSpeakBtn != value)
+					{
+						_isShowSpeakBtn = value;
+						OnPropertyChanged(nameof(IsShowSpeakBtn));
+					}
+				}
+			}
+
+			private bool _isTTSPlaying = false;
+			public bool IsTTSPlaying
+			{
+				get => _isTTSPlaying;
+				set
+				{
+					if (_isTTSPlaying != value)
+					{
+						_isTTSPlaying = value;
+						OnPropertyChanged(nameof(IsTTSPlaying));
+					}
+				}
+			}
+
+			public ICommand StartTTSCommand => new Command(() => {
+                if (SelectedPin == null || string.IsNullOrWhiteSpace(Data[SelectedPin.Id].Text)) return;
+
+                if (IsTTSPlaying)
+                    Helpers.TextToSpeech.Current.Stop();
+
+                Helpers.TextToSpeech.Current.Speak(Data[SelectedPin.Id].Text);
+                IsTTSPlaying = true;
+			});
+            public ICommand StopTTSCommand => new Command(() => {
+                Helpers.TextToSpeech.Current.Stop();
+                IsTTSPlaying = false;
+            });
+
+			private void OnTextToSpeechStopedSpeaking(object sender, EventArgs e)
+			{
+				IsTTSPlaying = false;
+			}
 
 
 
@@ -473,53 +581,7 @@ namespace Libmemo.Pages.Map
 
 
 
-			//private void HideAllPinsExcept(string id)
-			//{
-			//	IsShowOnlySelected = true;
-			//	foreach (var pin in CustomPins)
-			//	{
-			//		if (pin.Id == id) pin.Visible = true;
-			//		else pin.Visible = false;
-			//	}
-			//}
-			//private void ShowAllPins()
-			//{
-			//	IsShowOnlySelected = false;
-			//	foreach (var pin in CustomPins)
-			//	{
-			//		pin.Visible = true;
-			//	}
-			//}
 
-			//private bool _isShowOnlySelected = false;
-			//public bool IsShowOnlySelected
-			//{
-			//	get => _isShowOnlySelected;
-			//	set
-			//	{
-			//		if (_isShowOnlySelected != value)
-			//		{
-			//			_isShowOnlySelected = value;
-			//			OnPropertyChanged(nameof(IsShowOnlySelected));
-			//			OnPropertyChanged(nameof(IsShowHideAnotherButton));
-			//		}
-			//	}
-			//}
-
-			//public bool IsShowHideAnotherButton
-			//{
-			//	get => SelectedPin != null && !IsShowOnlySelected;
-			//}
-
-			//public ICommand HidePinsCommand => new Command(() => {
-			//	if (SelectedPin != null) HideAllPinsExcept(SelectedPin.Id);
-			//	else ShowAllPins();
-			//});
-
-
-			//public ICommand ShowPinsCommand => new Command(() => {
-			//	ShowAllPins();
-			//});
 
 
 		}
