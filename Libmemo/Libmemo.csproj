@@ -157,6 +157,20 @@
     </Compile>
     <Compile Include="Dependencies\ITextToSpeech.cs" />
     <Compile Include="Helpers\TextToSpeech.cs" />
+    <Compile Include="API\GoogleRoute\GmsDirection.cs" />
+    <Compile Include="API\GoogleRoute\GmsDirectionResult.cs" />
+    <Compile Include="API\GoogleRoute\GmsDirectionResultBounds.cs" />
+    <Compile Include="API\GoogleRoute\GmsDirectionResultLeg.cs" />
+    <Compile Include="API\GoogleRoute\GmsDirectionResultLegStep.cs" />
+    <Compile Include="API\GoogleRoute\GmsDirectionResultStatus.cs" />
+    <Compile Include="API\GoogleRoute\GmsDirectionTravelMode.cs" />
+    <Compile Include="API\GoogleRoute\GmsLocation.cs" />
+    <Compile Include="API\GoogleRoute\GmsPolyline.cs" />
+    <Compile Include="API\GoogleRoute\GmsRouteResult.cs" />
+    <Compile Include="API\GoogleRoute\GmsTextValue.cs" />
+    <Compile Include="API\GoogleRoute\GooglePoints.cs" />
+    <Compile Include="Helpers\RouteBuilder.cs" />
+    <Compile Include="Dependencies\IRouteBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\" />
@@ -176,6 +190,8 @@
     <Folder Include="Behaviors\" />
     <Folder Include="Pages\Relatives\" />
     <Folder Include="CustomElements\CustomMap\" />
+    <Folder Include="API\" />
+    <Folder Include="API\GoogleRoute\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">

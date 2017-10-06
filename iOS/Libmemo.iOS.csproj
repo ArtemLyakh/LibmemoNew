@@ -179,6 +179,7 @@
     <Compile Include="Dependencies\IFileStreamPickerImplementation.cs" />
     <Compile Include="Renderers\CustomMapRenderer.cs" />
     <Compile Include="Dependencies\TextToSpeechImplementation.cs" />
+    <Compile Include="Dependencies\RouteBuilderImplementation.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="calc_route.png" />

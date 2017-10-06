@@ -118,7 +118,7 @@
                                              WidthRequest="40"
                                              HeightRequest="40"
                                              Aspect="AspectFill"
-                                             IsVisible="{Binding Path=SelectedPin, Mode=OneWay, Converter={StaticResource IsPropertyNullConverter}}"
+                                             IsVisible="{Binding IsSetRouteVisible}"
                                              >
                                 <ffi:CachedImage.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding SetLinearRouteCommand}" />
@@ -128,7 +128,7 @@
                                              WidthRequest="40"
                                              HeightRequest="40"
                                              Aspect="AspectFill"
-                                             IsVisible="{Binding Path=SelectedPin, Mode=OneWay, Converter={StaticResource IsPropertyNullConverter}}"
+                                             IsVisible="{Binding IsSetRouteVisible}"
                                              >
                                 <ffi:CachedImage.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding SetCalculatedRouteCommand}" />

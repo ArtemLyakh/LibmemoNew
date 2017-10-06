@@ -67,6 +67,7 @@ namespace Libmemo.Pages.Map
 
                 SelectedPinChanged += (sender, e) => IsHideAllPinsVisible = !IsShowAllPinsVisible && e != null;
                 SelectedPinChanged += (sender, e) => IsShowSpeakBtn = e != null && !string.IsNullOrWhiteSpace(Data[e.Id].Text);
+                SelectedPinChanged += (sender, e) => IsSetRouteVisible = e != null;
             }
 
             public override void OnAppearing()
@@ -328,16 +329,104 @@ namespace Libmemo.Pages.Map
 
 
 
+            private List<Position> _route;
+            public List<Position> Route
+            {
+                get => _route;
+                set {
+                    if (_route != value) {
+                        _route = value;
+                        OnPropertyChanged(nameof(Route));
+                    }
+                }
+            }
+
+            private bool _isSetRouteVisible;
+            public bool IsSetRouteVisible
+            {
+                get => _isSetRouteVisible;
+                set {
+                    if (_isSetRouteVisible != value) {
+                        _isSetRouteVisible = value;
+                        OnPropertyChanged(nameof(IsSetRouteVisible));
+                    }
+                }
+            }
+
+			private bool _isRouteActive;
+			public bool IsRouteActive
+			{
+				get => _isRouteActive;
+				set
+				{
+					if (_isRouteActive != value)
+					{
+						_isRouteActive = value;
+						OnPropertyChanged(nameof(IsRouteActive));
+					}
+				}
+			}
+
+            public ICommand SetLinearRouteCommand => new Command(() =>
+            {
+                if (SelectedPin == null || !UserPosition.HasValue) return;
+
+                List<Position> route = new List<Position>() {
+                    UserPosition.Value,
+                    SelectedPin.Position
+                };
+
+                Route = route;
+
+                UserPositionChanged -= UpdateRoute;
+                UserPositionChanged += UpdateRoute;
+
+                IsRouteActive = true;
+            });
+
+            public ICommand SetCalculatedRouteCommand => new Command(async () =>
+            {
+                if (SelectedPin == null || !UserPosition.HasValue) return;
+
+                List<Position> route = await Helpers.RouteBuilder.GetRoute(UserPosition.Value, SelectedPin.Position);
+                if (route == null) {
+                    App.ToastNotificator.Show("Не удалось построить маршрут");
+                    return;
+                }
+
+                Route = new Position[] { UserPosition.Value }.Concat(route).Concat(new Position[] { SelectedPin.Position }).ToList();
+
+				UserPositionChanged -= UpdateRoute;
+				UserPositionChanged += UpdateRoute;
+
+                IsRouteActive = true;
+            });
+
+            public ICommand DeleteRouteCommand => new Command(() =>
+            {
+                UserPositionChanged -= UpdateRoute;
+                Route = null;
+                IsRouteActive = false;
+            });
 
 
+            private void UpdateRoute(object sender, Position e)
+            {
 
+            }
 
-
-
-
-
-
-
+			private double CalculateDistance(Position A, Position B)
+			{
+				double d1 = A.Latitude * 0.017453292519943295;
+				double d2 = A.Longitude * 0.017453292519943295;
+				double d3 = B.Latitude * 0.017453292519943295;
+				double d4 = B.Longitude * 0.017453292519943295;
+				double d5 = d4 - d2;
+				double d6 = d3 - d1;
+				double d7 = Math.Pow(Math.Sin(d6 / 2.0), 2.0) + ((Math.Cos(d1) * Math.Cos(d3)) * Math.Pow(Math.Sin(d5 / 2.0), 2.0));
+				double d8 = 2.0 * Math.Atan2(Math.Sqrt(d7), Math.Sqrt(1.0 - d7));
+				return (6376500.0 * d8);
+			}
 
 
 
@@ -484,18 +573,7 @@ namespace Libmemo.Pages.Map
 			//	this.Title = $"~ {distance.ToString("N0")} м";
 			//});
 
-			private double CalculateDistance(Position A, Position B)
-			{
-				double d1 = A.Latitude * 0.017453292519943295;
-				double d2 = A.Longitude * 0.017453292519943295;
-				double d3 = B.Latitude * 0.017453292519943295;
-				double d4 = B.Longitude * 0.017453292519943295;
-				double d5 = d4 - d2;
-				double d6 = d3 - d1;
-				double d7 = Math.Pow(Math.Sin(d6 / 2.0), 2.0) + ((Math.Cos(d1) * Math.Cos(d3)) * Math.Pow(Math.Sin(d5 / 2.0), 2.0));
-				double d8 = 2.0 * Math.Atan2(Math.Sqrt(d7), Math.Sqrt(1.0 - d7));
-				return (6376500.0 * d8);
-			}
+
 
 			//public ICommand SetCalculatedRouteCommand => new Command(async () => {
 			//	if (this._routeProcessing) return;
