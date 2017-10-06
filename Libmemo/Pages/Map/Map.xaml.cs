@@ -61,7 +61,7 @@ namespace Libmemo.Pages.Map
                 Pins = persons.Select(i => GetPin(i)).ToList();
 
 
-                FollowUser = false;
+                FollowUser = true;
                 UserPositionChanged += (sender, e) => UserPosition = e;
 
 

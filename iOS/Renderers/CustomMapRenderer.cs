@@ -88,6 +88,9 @@ namespace Libmemo.iOS.Renderers
                     SetCameraPosition(formsMap.CameraPosition, false);
                 SetPins(formsMap.Pins);
 
+                if (Map.UserLocation != null) {
+                    RendererCall.RaiseUserPositionChange(new Xamarin.Forms.Maps.Position(Map.UserLocation.Coordinate.Latitude, Map.UserLocation.Coordinate.Longitude));
+                }
 			}
 
         }
