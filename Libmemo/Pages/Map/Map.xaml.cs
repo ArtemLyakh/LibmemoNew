@@ -324,6 +324,31 @@ namespace Libmemo.Pages.Map
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 			public ICommand SearchCommand => new Command(async () => {
                 throw new NotImplementedException();
                 var q = 1;
@@ -517,67 +542,6 @@ namespace Libmemo.Pages.Map
 			//});
 
 			#endregion
-
-
-
-
-
-			#region TTS
-
-			//private int? _currentPlayed = null;
-			//public int? CurrentPlayed
-			//{
-			//	get { return _currentPlayed; }
-			//	set
-			//	{
-			//		if (_currentPlayed != value)
-			//		{
-			//			_currentPlayed = value;
-			//			this.OnPropertyChanged(nameof(CurrentPlayed));
-			//		}
-			//	}
-			//}
-
-			//public ICommand StartTTSOnSelectedPinCommand => new Command(() => {
-			//	if (this._ttsStarted) return;
-			//	this._ttsStarted = true;
-			//	var person = Data[int.Parse(this.SelectedPin.Id)];
-			//	SpeakPersonText(person);
-			//});
-			//public ICommand StopTTSCommand => new Command(() => StopSpeakPersonText());
-
-
-			//private void TextToSpeech_OnStart(object sender, string e)
-			//{
-			//	_ttsStarted = false;
-			//	CurrentPlayed = int.Parse(e);
-			//}
-
-			//private void TextToSpeech_OnEnd(object sender, string e)
-			//{
-			//	_ttsStarted = false;
-			//	CurrentPlayed = null;
-			//}
-
-			//private bool _ttsStarted = false;
-
-			//private void SpeakPersonText(Models.DeadPerson person)
-			//{
-			//	App.TextToSpeech.Speak(person.Text, person.Id);
-			//}
-
-			//private void StopSpeakPersonText()
-			//{
-			//	App.TextToSpeech.Stop();
-			//}
-
-			#endregion
-
-
-
-
-
-
 
 
 

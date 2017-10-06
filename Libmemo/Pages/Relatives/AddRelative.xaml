@@ -47,8 +47,15 @@
                         </StackLayout>
                         <StackLayout HorizontalOptions="FillAndExpand" Spacing="10" IsVisible="{Binding IsDeadPerson}">
                             <Label Text="Координаты" HorizontalOptions="CenterAndExpand" FontSize="Large" />
-                            <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="FillAndExpand" HeightRequest="200">
-                                <StackLayout Orientation="Vertical" Spacing="10" HorizontalOptions="Start" WidthRequest="150">
+                            <Grid HorizontalOptions="FillAndExpand" HeightRequest="200" RowSpacing="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*" />
+                                    <ColumnDefinition Width="7*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <StackLayout Grid.Row="0" Grid.Column="0" Orientation="Vertical" Spacing="10">
                                     <StackLayout Orientation="Vertical" Spacing="0">
                                         <Label Text="Широта:" FontSize="Small" HorizontalOptions="CenterAndExpand" />
                                         <Label Text="{Binding Latitude}" FontSize="Small" HorizontalOptions="CenterAndExpand" />
@@ -58,7 +65,7 @@
                                         <Label Text="{Binding Longitude}" FontSize="Small" HorizontalOptions="CenterAndExpand" />
                                     </StackLayout>
                                 </StackLayout>
-                                <maps:Map IsShowingUser="true"
+                                <maps:Map Grid.Row="0" Grid.Column="1" IsShowingUser="true"
                                     HorizontalOptions="FillAndExpand"
                                     VerticalOptions="FillAndExpand"
                                     CameraPosition="{Binding CameraPosition}"
@@ -71,7 +78,7 @@
                                         <x:Double>500</x:Double>
                                     </x:Arguments>
                                 </maps:Map>
-                            </StackLayout>
+                            </Grid>
                         </StackLayout>
                         <StackLayout HorizontalOptions="FillAndExpand" Spacing="10">
                             <StackLayout Orientation="Horizontal" Spacing="0" HorizontalOptions="FillAndExpand">

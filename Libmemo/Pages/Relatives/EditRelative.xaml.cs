@@ -34,7 +34,6 @@ namespace Libmemo.Pages.Relatives
 		{
 			base.OnAppearing();
 			Model.OnAppearing();
-            iOSHack.IsVisible = false;
 		}
 		protected override void OnDisappearing()
 		{

@@ -142,24 +142,29 @@
             </Grid>
             <StackLayout RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=0,Constant=0}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=0,Constant=0}" BackgroundColor="#80000000" IsVisible="{Binding IsMapVisible}">
                 <StackLayout.Padding>
-                    <OnPlatform x:TypeArguments="Thickness" iOS="30, 30, 30, 60" Android="30" />
+                    <OnPlatform x:TypeArguments="Thickness" iOS="30, 30, 30, 30" Android="30" />
                 </StackLayout.Padding>
-                <BoxView x:Name="iOSHack" BackgroundColor="#00000000" HorizontalOptions="FillAndExpand" WidthRequest="{x:Static local:App.ScreenWidth}" HeightRequest="{x:Static local:App.ScreenHeight}">
-                    <BoxView.IsVisible>
-                        <OnPlatform x:TypeArguments="x:Boolean" iOS="true" Android="false" />
-                    </BoxView.IsVisible>
-                </BoxView>
-                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="White" Padding="0,5" Spacing="5">
-                    <Label Text="{Binding Coordinates}" FontSize="Medium" HorizontalOptions="CenterAndExpand" />
-                    <maps:Map IsShowingUser="true" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" CameraPosition="{Binding CameraPosition}" IsGesturesEnabled="true" Pins="{Binding Pins}" IsShowInfoWindow="false" UserPositionChangedCommand="{Binding UserPositionChangedCommand}" MapClickCommand="{Binding MapClickCommand}">
+
+                <Grid BackgroundColor="White" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" RowSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Text="{Binding Coordinates}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                    <maps:Map Grid.Column="0" Grid.Row="1" IsShowingUser="true" CameraPosition="{Binding CameraPosition}" IsGesturesEnabled="true" Pins="{Binding Pins}" IsShowInfoWindow="false" UserPositionChangedCommand="{Binding UserPositionChangedCommand}" MapClickCommand="{Binding MapClickCommand}">
                         <x:Arguments>
                             <x:Double>47.23135</x:Double>
                             <x:Double>39.72328</x:Double>
                             <x:Double>500</x:Double>
                         </x:Arguments>
                     </maps:Map>
-                    <local:FixedButton Text="Закрыть" HorizontalOptions="FillAndExpand" Margin="10" Command="{Binding HideMap}" BackgroundColor="#333333" TextColor="White" />
-                </StackLayout>
+                    <local:FixedButton Grid.Column="0" Grid.Row="2" Text="Закрыть" Margin="5" Command="{Binding HideMap}" BackgroundColor="#333333" TextColor="White" />
+                </Grid>
+
             </StackLayout>
             <StackLayout RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=0,Constant=0}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=0,Constant=0}" BackgroundColor="#80000000" IsVisible="{Binding IsLoading}">
                 <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" BackgroundColor="White" Orientation="Horizontal" Padding="15">
