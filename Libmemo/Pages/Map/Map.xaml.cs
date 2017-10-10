@@ -430,6 +430,7 @@ namespace Libmemo.Pages.Map
                 IsRouteActive = false;
             });
 
+            private const double RoutePinsChangeDistance = 15;
             private bool routeUpdating = false;
             private void UpdateRoute(object sender, Position e)
             {
@@ -439,7 +440,7 @@ namespace Libmemo.Pages.Map
                 var route = Route.ToList();
                 route[0] = e;
 
-                if (CalculateDistance(route[0], route[1]) < 15)
+                if (CalculateDistance(route[0], route[1]) < RoutePinsChangeDistance)
                 {
                     if (Route.Count > 2)
                     {
