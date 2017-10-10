@@ -68,6 +68,26 @@ namespace Libmemo.Pages.Map
                 SelectedPinChanged += (sender, e) => IsHideAllPinsVisible = !IsShowAllPinsVisible && e != null;
                 SelectedPinChanged += (sender, e) => IsShowSpeakBtn = e != null && !string.IsNullOrWhiteSpace(Data[e.Id].Text);
                 SelectedPinChanged += (sender, e) => IsSetRouteVisible = e != null;
+
+                RouteChanged += ViewModel_RouteChanged;
+            }
+
+            private void ViewModel_RouteChanged(object sender, List<Position> e)
+            {
+                if (e == null)
+                {
+                    Title = null;
+                    return;
+                }
+
+                var routeDistance = e
+                    .Take(e.Count - 1)
+                    .Zip(e.Skip(1), (curr, next) => (Current: curr, Next: next))
+                    .AsParallel()
+                    .Select(i => CalculateDistance(i.Current, i.Next))
+                    .Sum();
+
+                Title = $"\u2248 {Math.Round(routeDistance)}м";
             }
 
             public override void OnAppearing()
@@ -328,7 +348,7 @@ namespace Libmemo.Pages.Map
 
 
 
-
+            private event EventHandler<List<Position>> RouteChanged;
             private List<Position> _route;
             public List<Position> Route
             {
@@ -336,6 +356,7 @@ namespace Libmemo.Pages.Map
                 set {
                     if (_route != value) {
                         _route = value;
+                        RouteChanged?.Invoke(this, value);
                         OnPropertyChanged(nameof(Route));
                     }
                 }
@@ -409,10 +430,32 @@ namespace Libmemo.Pages.Map
                 IsRouteActive = false;
             });
 
-
+            private bool routeUpdating = false;
             private void UpdateRoute(object sender, Position e)
             {
+                if (routeUpdating) return;
+                routeUpdating = true;
 
+                var route = Route.ToList();
+                route[0] = e;
+
+                if (CalculateDistance(route[0], route[1]) < 15)
+                {
+                    if (Route.Count > 2)
+                    {
+                        route[1] = route[0];
+                        route = route.Skip(1).ToList();
+                    }
+                    else
+                    {
+                        DeleteRouteCommand.Execute(null);
+                        return;
+                    }
+                }
+
+                Route = route;
+
+                routeUpdating = false;
             }
 
 			private double CalculateDistance(Position A, Position B)
