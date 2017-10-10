@@ -76,6 +76,30 @@
     <EmbeddedResource Include="Pages\Map\Map.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+	<EmbeddedResource Include="Pages\Admin\Account\Account.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+	<EmbeddedResource Include="Pages\Admin\Account\Add.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+	<EmbeddedResource Include="Pages\Admin\Account\List.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+	<EmbeddedResource Include="Pages\Admin\Tree\Tree.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+	<EmbeddedResource Include="Pages\Admin\Relatives\Add.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+	<EmbeddedResource Include="Pages\Admin\Relatives\Edit.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+	<EmbeddedResource Include="Pages\Admin\Relatives\List.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+	<EmbeddedResource Include="Pages\Admin\Relatives\UserSelect.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -171,6 +195,30 @@
     <Compile Include="API\GoogleRoute\GooglePoints.cs" />
     <Compile Include="Helpers\RouteBuilder.cs" />
     <Compile Include="Dependencies\IRouteBuilder.cs" />
+    <Compile Include="Pages\Admin\Account\Account.xaml.cs">
+      <DependentUpon>Account.xaml</DependentUpon>
+    </Compile>
+	<Compile Include="Pages\Admin\Account\Add.xaml.cs">
+      <DependentUpon>Add.xaml</DependentUpon>
+    </Compile>
+	<Compile Include="Pages\Admin\Account\List.xaml.cs">
+      <DependentUpon>List.xaml</DependentUpon>
+    </Compile>
+	<Compile Include="Pages\Admin\Tree\Tree.xaml.cs">
+      <DependentUpon>Tree.xaml</DependentUpon>
+    </Compile>
+	<Compile Include="Pages\Admin\Relatives\Add.xaml.cs">
+      <DependentUpon>Add.xaml</DependentUpon>
+    </Compile>
+	<Compile Include="Pages\Admin\Relatives\Edit.xaml.cs">
+      <DependentUpon>Edit.xaml</DependentUpon>
+    </Compile>
+	<Compile Include="Pages\Admin\Relatives\List.xaml.cs">
+      <DependentUpon>List.xaml</DependentUpon>
+    </Compile>
+	<Compile Include="Pages\Admin\Relatives\UserSelect.xaml.cs">
+      <DependentUpon>UserSelect.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\" />
@@ -192,6 +240,10 @@
     <Folder Include="CustomElements\CustomMap\" />
     <Folder Include="API\" />
     <Folder Include="API\GoogleRoute\" />
+	<Folder Include="Pages\Admin\" />
+	<Folder Include="Pages\Admin\Account\" />
+	<Folder Include="Pages\Admin\Relatives\" />
+	<Folder Include="Pages\Admin\Tree\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">
