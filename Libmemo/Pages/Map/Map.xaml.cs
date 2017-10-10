@@ -439,20 +439,16 @@ namespace Libmemo.Pages.Map
 
 
 			public ICommand SearchCommand => new Command(async () => {
-                throw new NotImplementedException();
-                var q = 1;
-                //await App.GlobalPage.Push(new Pages.Map.Search(
-                //Data.Select(i => i.Value).ToList(),
-                //async id => {
-                //await App.GlobalPage.Pop();
-                //var pin = CustomPins.First(i => i.Id == id.ToString());
-                //ShowAllPins();
-                //this.SelectedPin = pin;
-                //this.FollowUser = false;
-                //MoveCameraToPosition(pin.Position);
-                //}
-                //));
-			});
+                await App.GlobalPage.Push(new Pages.Map.Search(Data.Select(i => i.Value).ToList(), async id =>
+                {
+                    await App.GlobalPage.Pop();
+                    ShowPinsCommand.Execute(null);
+                    var pin = Pins.First(i => i.Id == id);
+                    this.SelectedPin = pin;
+                    this.FollowUser = false;
+                    CameraPosition = pin.Position;
+                }));
+            });
 
 
 
