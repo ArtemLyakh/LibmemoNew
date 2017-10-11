@@ -3606,8 +3606,8 @@ namespace Libmemo.Droid
 			// aapt resource value: 0x7f0b015a
 			public const int Animation_Design_BottomSheetDialog = 2131427674;
 			
-			// aapt resource value: 0x7f0b0174
-			public const int AppCompatDialogStyle = 2131427700;
+			// aapt resource value: 0x7f0b0175
+			public const int AppCompatDialogStyle = 2131427701;
 			
 			// aapt resource value: 0x7f0b00a5
 			public const int Base_AlertDialog_AppCompat = 2131427493;
@@ -4051,10 +4051,13 @@ namespace Libmemo.Droid
 			public const int CardView_Light = 2131427354;
 			
 			// aapt resource value: 0x7f0b0172
-			public const int MyTheme = 2131427698;
+			public const int MainTheme = 2131427698;
 			
 			// aapt resource value: 0x7f0b0173
-			public const int MyTheme_Base = 2131427699;
+			public const int MainTheme_Base = 2131427699;
+			
+			// aapt resource value: 0x7f0b0174
+			public const int MainTheme_Splash = 2131427700;
 			
 			// aapt resource value: 0x7f0b0032
 			public const int Platform_AppCompat = 2131427378;

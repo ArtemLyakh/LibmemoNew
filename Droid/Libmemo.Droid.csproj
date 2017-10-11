@@ -165,6 +165,7 @@
     <Compile Include="Dependencies\IFileStreamPickerImplementation.cs" />
     <Compile Include="Renderers\CustomMapRenderer.cs" />
     <Compile Include="Dependencies\TextToSpeechImplementation.cs" />
+    <Compile Include="SplashActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
