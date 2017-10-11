@@ -688,12 +688,12 @@ namespace Libmemo.Pages.Relatives
 					if (photo.Item1 is FileImageSource && !photo.Item2.HasValue)
 					{
 						var result = DependencyService.Get<IFileStreamPicker>().GetFile((photo.Item1 as FileImageSource).File);
-                        content.Add(new StreamContent(result.Stream), "new_photos[]", result.Name);
+                        content.Add(new StreamContent(result.Stream), "new_photos[]", $"photo{Path.GetExtension(result.Name)}");
 					}
 					else if (photo.Item1 is FileImageSource && photo.Item2.HasValue)
 					{
 						var result = DependencyService.Get<IFileStreamPicker>().GetFile((photo.Item1 as FileImageSource).File);
-                        content.Add(new StreamContent(result.Stream), $"update_photos[{photo.Item2.Value}]", result.Name);
+                        content.Add(new StreamContent(result.Stream), $"update_photos[{photo.Item2.Value}]", $"photo{Path.GetExtension(result.Name)}");
 					}
 					else if (photo.Item1 is UriImageSource && photo.Item2.HasValue)
 					{

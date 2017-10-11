@@ -467,7 +467,7 @@ namespace Libmemo.Pages.Relatives
 					try
 					{
 						var result = DependencyService.Get<IFileStreamPicker>().GetFile((photo as FileImageSource).File);
-						content.Add(new StreamContent(result.Stream), "photo", result.Name);
+						content.Add(new StreamContent(result.Stream), "photos[]", $"photo{Path.GetExtension(result.Name)}");
 					}
 					catch
 					{

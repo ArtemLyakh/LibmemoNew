@@ -180,7 +180,7 @@ namespace Libmemo.Models
                 person.Image = image;
             if (!string.IsNullOrWhiteSpace(json.preview_image_url) && Uri.TryCreate(json.preview_image_url, UriKind.Absolute, out Uri previewImage))
                 person.PreviewImage = previewImage;
-            if (json.photos.Count > 0)
+            if (json.photos != null && json.photos.Count > 0)
             {
                 foreach (var img in json.photos)
                 {
@@ -231,7 +231,7 @@ namespace Libmemo.Models
                 person.Image = image;
             if (!string.IsNullOrWhiteSpace(json.preview_image_url) && Uri.TryCreate(json.preview_image_url, UriKind.Absolute, out Uri previewImage))
                 person.PreviewImage = previewImage;
-            if (json.photos.Count > 0)
+            if (json.photos != null && json.photos.Count > 0)
             {
                 foreach (var img in json.photos)
                 {

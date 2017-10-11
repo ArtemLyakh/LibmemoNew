@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Threading;
 using System.Windows.Input;
@@ -230,10 +231,6 @@ namespace Libmemo.Pages.Account
 					return;
 				}
 
-
-				StartLoading("Сохранение");
-
-
 				var content = new MultipartFormDataContent(String.Format("----------{0:N}", Guid.NewGuid()));
 				content.Add(new StringContent(this.FirstName), "first_name");
 				content.Add(new StringContent(this.SecondName ?? string.Empty), "second_name");
@@ -246,7 +243,7 @@ namespace Libmemo.Pages.Account
                 if (this.PhotoSource != null && this.PhotoSource is FileImageSource) {
                     try {
                         var result = DependencyService.Get<IFileStreamPicker>().GetFile((PhotoSource as FileImageSource).File);
-                        content.Add(new StreamContent(result.Stream), "photo", result.Name);
+                        content.Add(new StreamContent(result.Stream), "photo", $"photo{Path.GetExtension(result.Name)}");
                     } catch {
 						App.ToastNotificator.Show("Не удалось получить фото");
 						return;
@@ -254,6 +251,7 @@ namespace Libmemo.Pages.Account
 
                 }
 
+                StartLoading("Сохранение");
 
 				HttpResponseMessage response;
 				try
