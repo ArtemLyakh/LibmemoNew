@@ -76,6 +76,15 @@
     <EmbeddedResource Include="Pages\Map\Map.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Admin\Account\List.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Admin\Account\Account.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Admin\Account\Add.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -171,6 +180,15 @@
     <Compile Include="API\GoogleRoute\GooglePoints.cs" />
     <Compile Include="Helpers\RouteBuilder.cs" />
     <Compile Include="Dependencies\IRouteBuilder.cs" />
+    <Compile Include="Pages\Admin\Account\List.xaml.cs">
+      <DependentUpon>List.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Admin\Account\Account.xaml.cs">
+      <DependentUpon>Account.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Admin\Account\Add.xaml.cs">
+      <DependentUpon>Add.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Pages\" />
@@ -192,6 +210,9 @@
     <Folder Include="CustomElements\CustomMap\" />
     <Folder Include="API\" />
     <Folder Include="API\GoogleRoute\" />
+    <Folder Include="Pages\Admin\" />
+    <Folder Include="Pages\Admin\Tree\" />
+    <Folder Include="Pages\Admin\Account\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">

@@ -81,10 +81,9 @@ namespace Libmemo.Pages.Core
 					{
 						Text = "Список пользователей",
 						Image = ImageSource.FromFile("menu_login"),
-						//Action = () => App.GlobalPage.Push(new Pages.Admin.Account.List(async id => {
-						//	await App.GlobalPage.Push(new Pages.Admin.Account.Account(id));
-						//}))
-                        Action = () => throw new NotImplementedException()
+						Action = () => App.GlobalPage.Push(new Pages.Admin.Account.List(async id => {
+							await App.GlobalPage.Push(new Pages.Admin.Account.Account(id));
+						}))
 					};
 					yield return new MenuItem
 					{
