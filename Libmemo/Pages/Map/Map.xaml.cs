@@ -68,7 +68,27 @@ namespace Libmemo.Pages.Map
                 SelectedPinChanged += (sender, e) => IsHideAllPinsVisible = !IsShowAllPinsVisible && e != null;
                 SelectedPinChanged += (sender, e) => IsShowSpeakBtn = e != null && !string.IsNullOrWhiteSpace(Data[e.Id].Text);
                 SelectedPinChanged += (sender, e) => IsSetRouteVisible = e != null;
+
+                RouteChanged += ViewModel_RouteChanged;
             }
+
+			private void ViewModel_RouteChanged(object sender, List<Position> e)
+			{
+				if (e == null)
+				{
+					Title = null;
+					return;
+				}
+
+				var routeDistance = e
+					.Take(e.Count - 1)
+					.Zip(e.Skip(1), (curr, next) => (Current: curr, Next: next))
+					.AsParallel()
+					.Select(i => CalculateDistance(i.Current, i.Next))
+					.Sum();
+
+				Title = $"\u2248 {Math.Round(routeDistance)}м";
+			}
 
             public override void OnAppearing()
             {
@@ -79,6 +99,7 @@ namespace Libmemo.Pages.Map
             public override void OnDisappearing()
             {
                 base.OnDisappearing();
+                Helpers.TextToSpeech.Current.Stop();
                 Helpers.TextToSpeech.Current.TTSStopped -= OnTextToSpeechStopedSpeaking;
             }
 
@@ -329,17 +350,21 @@ namespace Libmemo.Pages.Map
 
 
 
-            private List<Position> _route;
-            public List<Position> Route
-            {
-                get => _route;
-                set {
-                    if (_route != value) {
-                        _route = value;
-                        OnPropertyChanged(nameof(Route));
-                    }
-                }
-            }
+			private event EventHandler<List<Position>> RouteChanged;
+			private List<Position> _route;
+			public List<Position> Route
+			{
+				get => _route;
+				set
+				{
+					if (_route != value)
+					{
+						_route = value;
+						RouteChanged?.Invoke(this, value);
+						OnPropertyChanged(nameof(Route));
+					}
+				}
+			}
 
             private bool _isSetRouteVisible;
             public bool IsSetRouteVisible
@@ -409,13 +434,36 @@ namespace Libmemo.Pages.Map
                 IsRouteActive = false;
             });
 
-
+			private const double RoutePinsChangeDistance = 15;
+			private bool routeUpdating = false;
             private void UpdateRoute(object sender, Position e)
             {
+				if (routeUpdating) return;
+				routeUpdating = true;
 
+				var route = Route.ToList();
+				route[0] = e;
+
+				if (CalculateDistance(route[0], route[1]) < RoutePinsChangeDistance)
+				{
+					if (Route.Count > 2)
+					{
+						route[1] = route[0];
+						route = route.Skip(1).ToList();
+					}
+					else
+					{
+						DeleteRouteCommand.Execute(null);
+						return;
+					}
+				}
+
+				Route = route;
+
+				routeUpdating = false;
             }
 
-			private double CalculateDistance(Position A, Position B)
+			private static double CalculateDistance(Position A, Position B)
 			{
 				double d1 = A.Latitude * 0.017453292519943295;
 				double d2 = A.Longitude * 0.017453292519943295;
@@ -439,19 +487,15 @@ namespace Libmemo.Pages.Map
 
 
 			public ICommand SearchCommand => new Command(async () => {
-                throw new NotImplementedException();
-                var q = 1;
-                //await App.GlobalPage.Push(new Pages.Map.Search(
-                //Data.Select(i => i.Value).ToList(),
-                //async id => {
-                //await App.GlobalPage.Pop();
-                //var pin = CustomPins.First(i => i.Id == id.ToString());
-                //ShowAllPins();
-                //this.SelectedPin = pin;
-                //this.FollowUser = false;
-                //MoveCameraToPosition(pin.Position);
-                //}
-                //));
+				await App.GlobalPage.Push(new Pages.Map.Search(Data.Select(i => i.Value).ToList(), async id =>
+				{
+					await App.GlobalPage.Pop();
+					ShowPinsCommand.Execute(null);
+					var pin = Pins.First(i => i.Id == id);
+					this.SelectedPin = pin;
+					this.FollowUser = false;
+					CameraPosition = pin.Position;
+				}));
 			});
 
 
