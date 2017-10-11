@@ -85,6 +85,9 @@
     <EmbeddedResource Include="Pages\Admin\Account\Add.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Admin\Tree\Tree.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -188,6 +191,9 @@
     </Compile>
     <Compile Include="Pages\Admin\Account\Add.xaml.cs">
       <DependentUpon>Add.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Admin\Tree\Tree.xaml.cs">
+      <DependentUpon>Tree.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

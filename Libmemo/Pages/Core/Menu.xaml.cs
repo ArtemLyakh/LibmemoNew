@@ -98,10 +98,9 @@ namespace Libmemo.Pages.Core
 					{
 						Text = "Деревья пользователей",
 						Image = ImageSource.FromFile("menu_tree"),
-						//Action = () => App.GlobalPage.PushRoot(new Pages.Admin.Account.List(async id => {
-						//	await App.GlobalPage.Push(new Pages.Admin.Tree.Tree(id));
-						//}))
-                        Action = () => throw new NotImplementedException()
+						Action = () => App.GlobalPage.PushRoot(new Pages.Admin.Account.List(async id => {
+							await App.GlobalPage.Push(new Pages.Admin.Tree.Tree(id));
+						}))
 					};
 				}
 				else
