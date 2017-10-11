@@ -89,10 +89,9 @@ namespace Libmemo.Pages.Core
 					{
 						Text = "Родственники пользователей",
 						Image = ImageSource.FromFile("menu_rel"),
-						//Action = () => App.GlobalPage.PushRoot(new Pages.Admin.Relatives.List(async id => {
-						//	await App.GlobalPage.Push(new Pages.Admin.Relatives.Edit(id));
-						//}))
-                        Action = () => throw new NotImplementedException()
+						Action = () => App.GlobalPage.PushRoot(new Pages.Admin.Relatives.List(async id => {
+							await App.GlobalPage.Push(new Pages.Admin.Relatives.Edit(id));
+						}))
 					};
 					yield return new MenuItem
 					{
