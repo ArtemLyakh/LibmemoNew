@@ -34,45 +34,45 @@
         </scene>
     </scenes>
     <resources>
-        <image name="calc_route.png" width="40" height="40"/>
-        <image name="back.png" width="40" height="40"/>
-        <image name="arrow_up.png" width="40" height="40"/>
-        <image name="arrow_down.png" width="40" height="40"/>
-        <image name="admin.png" width="40" height="40"/>
         <image name="add.png" width="40" height="40"/>
-        <image name="menu.png" width="40" height="40"/>
-        <image name="menu_tree.png" width="60" height="60"/>
-        <image name="menu_sync.png" width="60" height="60"/>
-        <image name="menu_rel.png" width="60" height="60"/>
-        <image name="menu_reg.png" width="60" height="60"/>
-        <image name="menu_map.png" width="60" height="60"/>
-        <image name="menu_login.png" width="60" height="60"/>
-        <image name="menu_exit.png" width="60" height="60"/>
-        <image name="line_route.png" width="40" height="40"/>
-        <image name="info.png" width="32" height="32"/>
-        <image name="icon.png" width="48" height="48"/>
-        <image name="gps_on.png" width="40" height="40"/>
-        <image name="gps_off.png" width="40" height="40"/>
-        <image name="delete.png" width="40" height="40"/>
+        <image name="admin.png" width="40" height="40"/>
+        <image name="arrow_down.png" width="40" height="40"/>
+        <image name="arrow_up.png" width="40" height="40"/>
+        <image name="back.png" width="40" height="40"/>
+        <image name="calc_route.png" width="40" height="40"/>
         <image name="default_pin.png" width="32" height="32"/>
-        <image name="placeholder.png" width="160" height="160"/>
-        <image name="pin_show.png" width="40" height="40"/>
-        <image name="pin_hide.png" width="40" height="40"/>
-        <image name="no_tree_img.png" width="75" height="75"/>
+        <image name="delete.png" width="40" height="40"/>
+        <image name="gps_off.png" width="40" height="40"/>
+        <image name="gps_on.png" width="40" height="40"/>
+        <image name="icon.png" width="48" height="48"/>
+        <image name="info.png" width="32" height="32"/>
+        <image name="line_route.png" width="40" height="40"/>
+        <image name="menu.png" width="40" height="40"/>
+        <image name="menu_exit.png" width="60" height="60"/>
+        <image name="menu_login.png" width="60" height="60"/>
+        <image name="menu_map.png" width="60" height="60"/>
+        <image name="menu_reg.png" width="60" height="60"/>
+        <image name="menu_rel.png" width="60" height="60"/>
+        <image name="menu_sync.png" width="60" height="60"/>
+        <image name="menu_tree.png" width="60" height="60"/>
         <image name="no_img.png" width="60" height="60"/>
-        <image name="zoom_out.png" width="40" height="40"/>
-        <image name="zoom_in.png" width="40" height="40"/>
-        <image name="user.png" width="40" height="40"/>
-        <image name="tree_add_button.png" width="50" height="50"/>
-        <image name="street_view.png" width="40" height="40"/>
-        <image name="splash_logo.jpg" width="224" height="224"/>
-        <image name="speaker_pin.png" width="32" height="32"/>
-        <image name="space_view.png" width="40" height="40"/>
-        <image name="sound_stop.png" width="40" height="40"/>
-        <image name="sound_play.png" width="40" height="40"/>
-        <image name="search.png" width="40" height="40"/>
-        <image name="save.png" width="40" height="40"/>
-        <image name="route_delete.png" width="40" height="40"/>
+        <image name="no_tree_img.png" width="75" height="75"/>
+        <image name="pin_hide.png" width="40" height="40"/>
+        <image name="pin_show.png" width="40" height="40"/>
+        <image name="placeholder.png" width="160" height="160"/>
         <image name="reload.png" width="40" height="40"/>
+        <image name="route_delete.png" width="40" height="40"/>
+        <image name="save.png" width="40" height="40"/>
+        <image name="search.png" width="40" height="40"/>
+        <image name="sound_play.png" width="40" height="40"/>
+        <image name="sound_stop.png" width="40" height="40"/>
+        <image name="space_view.png" width="40" height="40"/>
+        <image name="speaker_pin.png" width="32" height="32"/>
+        <image name="street_view.png" width="40" height="40"/>
+        <image name="tree_add_button.png" width="50" height="50"/>
+        <image name="user.png" width="40" height="40"/>
+        <image name="zoom_in.png" width="40" height="40"/>
+        <image name="zoom_out.png" width="40" height="40"/>
+        <image name="splash_logo.jpg" width="224" height="224"/>
     </resources>
 </document>
