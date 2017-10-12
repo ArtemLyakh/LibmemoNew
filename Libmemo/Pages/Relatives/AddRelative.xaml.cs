@@ -137,7 +137,7 @@ namespace Libmemo.Pages.Relatives
 			private bool _isDeadPerson = true;
 			public bool IsDeadPerson
 			{
-				get => _isDeadPerson;
+                get => _isDeadPerson;
 				set
 				{
 					_isDeadPerson = value;

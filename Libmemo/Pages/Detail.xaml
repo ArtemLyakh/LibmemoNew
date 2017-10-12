@@ -37,7 +37,7 @@
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
-                                        <ffi:CachedImage Grid.Row="0" HorizontalOptions="Fill" DownsampleToViewSize="True" Source="{Binding PhotoSource}">
+                                        <ffi:CachedImage Grid.Row="0" HorizontalOptions="Fill" Source="{Binding PhotoSource}">
                                         </ffi:CachedImage>
                                     </Grid>
                                 </DataTemplate>
@@ -54,7 +54,7 @@
                         </StackLayout>
                         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Spacing="10" IsVisible="{Binding IsSchemeShow}">
                             <Label Text="Схема захоронения:" HorizontalOptions="Start" VerticalOptions="CenterAndExpand" />
-                            <local:FixedButton Text="Скачать" Command="{Binding SchemeDownloadCommand}" HorizontalOptions="CenterAndExpand" BackgroundColor="#333333" TextColor="White" />
+                            <local:FixedButton Text="Скачать" Command="{Binding SchemeDownloadCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#333333" TextColor="White" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Spacing="10" IsVisible="{Binding IsSectionShow}">
                             <Label Text="Квартал:" HorizontalOptions="StartAndExpand" WidthRequest="100" />

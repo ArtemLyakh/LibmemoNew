@@ -147,7 +147,7 @@
                             <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="FillAndExpand">
                                 <local:FixedButton Text="Выбрать" Command="{Binding SelectSchemeCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#333333" TextColor="White" />
                                 <Label Text="{Binding SchemeName}" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" />
-                            </StackLayout>
+                            </StackLayout>              
                         </StackLayout>
                     </StackLayout>
                 </ScrollView>

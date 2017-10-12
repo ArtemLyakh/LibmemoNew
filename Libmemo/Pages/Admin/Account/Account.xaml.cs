@@ -263,9 +263,6 @@ namespace Libmemo.Pages.Admin.Account
 				}
 
 
-				StartLoading("Сохранение");
-
-
 				var content = new MultipartFormDataContent(String.Format("----------{0:N}", Guid.NewGuid()));
 				content.Add(new StringContent(this.FirstName), "first_name");
 				content.Add(new StringContent(this.SecondName ?? string.Empty), "second_name");
@@ -279,7 +276,7 @@ namespace Libmemo.Pages.Admin.Account
 					try
 					{
 						var result = DependencyService.Get<IFileStreamPicker>().GetFile((PhotoSource as FileImageSource).File);
-						content.Add(new StreamContent(result.Stream), "photo", result.Name);
+                        content.Add(new StreamContent(result.Stream), "photo", $"photo{System.IO.Path.GetExtension(result.Name)}");
 					}
 					catch
 					{
@@ -289,6 +286,7 @@ namespace Libmemo.Pages.Admin.Account
 
 				}
 
+				StartLoading("Сохранение");
 
 				HttpResponseMessage response;
 				try
