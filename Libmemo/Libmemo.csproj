@@ -67,9 +67,6 @@
     <EmbeddedResource Include="Pages\Relatives\AddRelative.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pages\Test.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Include="Pages\Relatives\EditRelative.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -170,9 +167,6 @@
     <Compile Include="Converters\NullableDoubleConverter.cs" />
     <Compile Include="Converters\IsPropertyNullConverter.cs" />
     <Compile Include="Converters\IsPinSpeakableConverter.cs" />
-    <Compile Include="Pages\Test.xaml.cs">
-      <DependentUpon>Test.xaml</DependentUpon>
-    </Compile>
     <Compile Include="CustomElements\CustomMap\Map.cs" />
     <Compile Include="CustomElements\CustomMap\Pin.cs" />
     <Compile Include="CustomElements\CustomMap\PinImage.cs" />

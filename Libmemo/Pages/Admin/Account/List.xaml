@@ -48,6 +48,15 @@
                             <TextCell Text="{Binding Text}" TextColor="Black" />
                         </DataTemplate>
                     </ListView.ItemTemplate>
+                    <ListView.Footer>
+                        <ContentView>
+                            <OnPlatform x:TypeArguments="View">
+                                <OnPlatform.iOS>
+                                    <Label Text=" " />
+                                </OnPlatform.iOS>
+                            </OnPlatform>
+                        </ContentView>
+                    </ListView.Footer>
                 </local:CustomListView>
             </Grid>
             <StackLayout RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=0,Constant=0}" RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=0,Constant=0}" BackgroundColor="#80000000" IsVisible="{Binding IsLoading}">

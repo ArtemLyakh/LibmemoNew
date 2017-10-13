@@ -42,6 +42,15 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+                <ListView.Footer>
+                    <ContentView>
+                        <OnPlatform x:TypeArguments="View">
+                            <OnPlatform.iOS>
+                                <Label Text=" " />
+                            </OnPlatform.iOS>
+                        </OnPlatform>
+                    </ContentView>
+                </ListView.Footer>
             </ListView>
         </Grid>
     </ContentPage.Content>
