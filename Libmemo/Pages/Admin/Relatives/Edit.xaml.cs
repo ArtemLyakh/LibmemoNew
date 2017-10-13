@@ -70,6 +70,8 @@ namespace Libmemo.Pages.Admin.Relatives
 					Coordinates = $"{position.Latitude}\n{position.Longitude}";
 				};
 
+                IsDeadPersonChanged += (sender, e) => IsSchemeVisible = Device.RuntimePlatform == Device.iOS ? false : e;
+
 				ResetCommand.Execute(null);
 			}
 
@@ -256,6 +258,7 @@ namespace Libmemo.Pages.Admin.Relatives
 
 			#endregion
 
+            private event EventHandler<bool> IsDeadPersonChanged;
 			private bool _isDeadPerson = true;
 			public bool IsDeadPerson
 			{
@@ -263,6 +266,7 @@ namespace Libmemo.Pages.Admin.Relatives
 				set
 				{
 					_isDeadPerson = value;
+                    IsDeadPersonChanged?.Invoke(this, value);
 					OnPropertyChanged(nameof(IsDeadPerson));
 				}
 			}
@@ -548,6 +552,18 @@ namespace Libmemo.Pages.Admin.Relatives
 			public ICommand SchemeDownloadCommand => new Command(() => {
 				if (SchemeUrl != null) Device.OpenUri(SchemeUrl);
 			});
+
+			private bool _isSchemeVisible;
+			public bool IsSchemeVisible
+			{
+				get => _isSchemeVisible;
+				set
+				{
+					_isSchemeVisible = value;
+					OnPropertyChanged(nameof(IsSchemeVisible));
+				}
+			}
+
 
 
 			private string _section;

@@ -142,7 +142,7 @@
                                 <Entry Keyboard="Numeric" Text="{Binding Path=GraveNumber, Converter={StaticResource NullableDoubleConverter}}" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" />
                             </StackLayout>
                         </StackLayout>
-                        <StackLayout HorizontalOptions="FillAndExpand" Spacing="10" IsVisible="{Binding IsDeadPerson}">
+                        <StackLayout HorizontalOptions="FillAndExpand" Spacing="10" IsVisible="{Binding IsSchemeVisible}">
                             <Label Text="Схема захоронения" HorizontalOptions="CenterAndExpand" FontSize="Large" />
                             <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="FillAndExpand">
                                 <local:FixedButton Text="Выбрать" Command="{Binding SelectSchemeCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#333333" TextColor="White" />

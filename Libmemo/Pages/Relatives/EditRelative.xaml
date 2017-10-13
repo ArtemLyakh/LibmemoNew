@@ -126,7 +126,7 @@
                                 <Entry Keyboard="Numeric" Text="{Binding Path=GraveNumber, Converter={StaticResource NullableDoubleConverter}}" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" />
                             </StackLayout>
                         </StackLayout>
-                        <StackLayout HorizontalOptions="FillAndExpand" Spacing="10" IsVisible="{Binding IsDeadPerson}">
+                        <StackLayout HorizontalOptions="FillAndExpand" Spacing="10" IsVisible="{Binding IsSchemeVisible}">
                             <Label Text="Схема захоронения" HorizontalOptions="CenterAndExpand" FontSize="Large" />
                             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Spacing="10" IsVisible="{Binding IsSchemeCanDownload}">
                                 <Label Text="Схема захоронения:" HorizontalOptions="Fill" VerticalOptions="CenterAndExpand" />

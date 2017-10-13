@@ -53,6 +53,8 @@ namespace Libmemo.Pages.Admin.Relatives
 					Longitude = position.Longitude.ToString();
 					CameraPosition = position;
 				};
+
+                IsDeadPersonChanged += (sender, e) => IsSchemeVisible = Device.RuntimePlatform == Device.iOS ? false : e;
 			}
 
 
@@ -177,6 +179,7 @@ namespace Libmemo.Pages.Admin.Relatives
 
 			#endregion
 
+            private event EventHandler<bool> IsDeadPersonChanged;
 			private bool _isDeadPerson = true;
 			public bool IsDeadPerson
 			{
@@ -184,6 +187,7 @@ namespace Libmemo.Pages.Admin.Relatives
 				set
 				{
 					_isDeadPerson = value;
+                    IsDeadPersonChanged?.Invoke(this, value);
 					OnPropertyChanged(nameof(IsDeadPerson));
 				}
 			}
@@ -426,6 +430,18 @@ namespace Libmemo.Pages.Admin.Relatives
 
 				SetScheme(fileName, file.DataArray);
 			});
+
+			private bool _isSchemeVisible;
+			public bool IsSchemeVisible
+			{
+				get => _isSchemeVisible;
+				set
+				{
+					_isSchemeVisible = value;
+					OnPropertyChanged(nameof(IsSchemeVisible));
+				}
+			}
+
 
 			private string _section;
 			public string Section
