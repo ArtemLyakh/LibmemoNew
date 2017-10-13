@@ -303,6 +303,7 @@ namespace Libmemo.iOS.Renderers
                                ? UIImage.FromFile("speaker_pin.png")
                                : UIImage.FromFile("default_pin.png"),
                     CalloutOffset = new CoreGraphics.CGPoint(0, 0),
+                    CenterOffset = new CoreGraphics.CGPoint(0, -14),
                     LeftCalloutAccessoryView = icon,
                     RightCalloutAccessoryView = UIButton.FromType(UIButtonType.DetailDisclosure)
 				};

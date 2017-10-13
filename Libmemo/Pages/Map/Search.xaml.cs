@@ -82,32 +82,30 @@ namespace Libmemo.Pages.Map
 				}
 			}
 
-			private string _filter;
-			public string Filter
+            private string _search;
+            public string Search
 			{
-				get => _filter;
+				get => _search;
 				set
 				{
-					if (_filter != value)
+					if (_search != value)
 					{
-						_filter = value;
-						OnPropertyChanged(nameof(Filter));
+						_search = value;
+						OnPropertyChanged(nameof(Search));
 					}
 				}
 			}
 
 
 			public ICommand FilterCommand => new Command(() => {
-				if (string.IsNullOrWhiteSpace(this.Filter))
+				if (string.IsNullOrWhiteSpace(this.Search))
 				{
 					this.Data = this.FullData;
 				}
 				else
 				{
 					this.Data = FullData
-						.DefaultIfEmpty()
-						.Where(i => i.Text.ToLowerInvariant().IndexOf(this.Filter.ToLowerInvariant()) != -1)
-						.Select(i => i)
+						.Where(i => i.Text.ToLowerInvariant().IndexOf(this.Search.ToLowerInvariant(), StringComparison.Ordinal) != -1)
 						.ToList();
 				}
 			});
