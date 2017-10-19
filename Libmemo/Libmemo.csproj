@@ -100,6 +100,9 @@
     <EmbeddedResource Include="Pages\Map\Search.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pages\Start.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -218,6 +221,9 @@
     </Compile>
     <Compile Include="Pages\Map\Search.xaml.cs">
       <DependentUpon>Search.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Start.xaml.cs">
+      <DependentUpon>Start.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

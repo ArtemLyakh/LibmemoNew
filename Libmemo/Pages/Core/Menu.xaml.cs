@@ -49,7 +49,7 @@ namespace Libmemo.Pages.Core
 			{
 				Text = "Карта",
 				Image = ImageSource.FromFile("menu_map"),
-				Action = () => App.GlobalPage.PopToRootPage()
+                Action = () => App.GlobalPage.PushRoot(new Pages.Map.Filter())
 			};
 
 			if (!AuthHelper.IsLogged)

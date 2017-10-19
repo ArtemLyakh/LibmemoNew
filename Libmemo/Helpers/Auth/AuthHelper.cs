@@ -12,13 +12,19 @@ namespace Libmemo
 
 			App.InitMenu();
 
+            AuthChanged?.Invoke(null, null);
+
 			App.ToastNotificator.Show($"Добро пожаловать, {(!string.IsNullOrWhiteSpace(info.Fio) ? info.Fio : info.Email)}");
 		}
+
+        public static event EventHandler AuthChanged;
 
 		private static void InnerLogout()
 		{
 			Settings.AuthInfo = null;
 			App.InitMenu();
+
+            AuthChanged?.Invoke(null, null);
 		}
 
 		public static async Task Logout()
