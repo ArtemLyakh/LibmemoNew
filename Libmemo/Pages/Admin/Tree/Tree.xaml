@@ -28,7 +28,7 @@
                              Grid.Row="0"
                              HeightRequest="50"
                              Orientation="Horizontal"
-                             BackgroundColor="#333333"
+                             BackgroundColor="#666699"
                              Padding="5"
                              Spacing="5"
                              >

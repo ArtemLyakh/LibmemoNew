@@ -21,7 +21,7 @@
                     <RowDefinition Height="50" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <StackLayout Grid.Column="0" Grid.Row="0" HeightRequest="50" Orientation="Horizontal" BackgroundColor="#333333" Padding="5" Spacing="5">
+                <StackLayout Grid.Column="0" Grid.Row="0" HeightRequest="50" Orientation="Horizontal" BackgroundColor="#666699" Padding="5" Spacing="5">
                     <ffi:CachedImage Source="back.png" VerticalOptions="CenterAndExpand" HorizontalOptions="Start" WidthRequest="40" HeightRequest="40" Aspect="AspectFill">
                         <ffi:CachedImage.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding BackCommand}" />
@@ -112,9 +112,9 @@
                                         </Grid.RowDefinitions>
                                         <ffi:CachedImage Grid.RowSpan="2" HorizontalOptions="Fill" Source="{Binding PhotoSource}">
                                         </ffi:CachedImage>
-                                        <StackLayout Grid.Row="1" BackgroundColor="#80333333" Spacing="10" Padding="10" Orientation="Horizontal">
-                                            <local:FixedButton Text="Выбрать фото" Command="{Binding PickPhotoCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#333333" TextColor="White" BorderWidth="5" BorderColor="White" />
-                                            <local:FixedButton Text="Сделать фото" Command="{Binding MakePhotoCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#333333" TextColor="White" BorderWidth="5" BorderColor="White" />
+                                        <StackLayout Grid.Row="1" BackgroundColor="#80666699" Spacing="10" Padding="10" Orientation="Horizontal">
+                                            <local:FixedButton Text="Выбрать фото" Command="{Binding PickPhotoCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#666699" TextColor="White" BorderWidth="5" BorderColor="White" />
+                                            <local:FixedButton Text="Сделать фото" Command="{Binding MakePhotoCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#666699" TextColor="White" BorderWidth="5" BorderColor="White" />
                                         </StackLayout>
                                     </Grid>
                                 </DataTemplate>
@@ -145,7 +145,7 @@
                         <StackLayout HorizontalOptions="FillAndExpand" Spacing="10" IsVisible="{Binding IsSchemeVisible}">
                             <Label Text="Схема захоронения" HorizontalOptions="CenterAndExpand" FontSize="Large" />
                             <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="FillAndExpand">
-                                <local:FixedButton Text="Выбрать" Command="{Binding SelectSchemeCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#333333" TextColor="White" />
+                                <local:FixedButton Text="Выбрать" Command="{Binding SelectSchemeCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#666699" TextColor="White" />
                                 <Label Text="{Binding SchemeName}" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" />
                             </StackLayout>              
                         </StackLayout>

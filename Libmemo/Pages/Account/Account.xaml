@@ -35,7 +35,7 @@
                              Grid.Row="0"
                              HeightRequest="50"
                              Orientation="Horizontal"
-                             BackgroundColor="#333333"
+                             BackgroundColor="#666699"
                              Padding="5"
                              Spacing="5"
                              >
@@ -143,13 +143,13 @@
                                 <local:FixedButton Text="Выбрать фото"
                                         Command="{Binding PickPhotoCommand}"
                                         HorizontalOptions="FillAndExpand"
-                                        BackgroundColor="#333333"
+                                        BackgroundColor="#666699"
                                         TextColor="White"
                                         />
                                 <local:FixedButton Text="Сделать фото"
                                         Command="{Binding MakePhotoCommand}"
                                         HorizontalOptions="FillAndExpand"
-                                        BackgroundColor="#333333"
+                                        BackgroundColor="#666699"
                                         TextColor="White"
                                         />
                             </StackLayout>

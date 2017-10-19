@@ -18,7 +18,7 @@
                     <RowDefinition Height="50" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <StackLayout Grid.Column="0" Grid.Row="0" HeightRequest="50" Orientation="Horizontal" BackgroundColor="#333333" Padding="5" Spacing="5">
+                <StackLayout Grid.Column="0" Grid.Row="0" HeightRequest="50" Orientation="Horizontal" BackgroundColor="#666699" Padding="5" Spacing="5">
                     <ffi:CachedImage Source="back.png" VerticalOptions="CenterAndExpand" HorizontalOptions="Start" WidthRequest="40" HeightRequest="40" Aspect="AspectFill">
                         <ffi:CachedImage.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding BackCommand}" />
@@ -58,8 +58,8 @@
                             <Label HorizontalOptions="CenterAndExpand" Text="Номер могилы" />
                             <Picker ItemsSource="{Binding GraveNumberList}" SelectedIndex="{Binding GraveNumberListIndex}" HorizontalOptions="FillAndExpand" />
                         </StackLayout>
-                        <local:FixedButton Text="Найти" HorizontalOptions="FillAndExpand" Command="{Binding SearchCommand}" IsVisible="{Binding IsSearchButtonShow}" BackgroundColor="#333333" TextColor="White" />
-                        <local:FixedButton Text="Показать" HorizontalOptions="FillAndExpand" Command="{Binding ShowCommand}" IsVisible="{Binding IsShowButtonShow}" BackgroundColor="#333333" TextColor="White" />
+                        <local:FixedButton Text="Найти" HorizontalOptions="FillAndExpand" Command="{Binding SearchCommand}" IsVisible="{Binding IsSearchButtonShow}" BackgroundColor="#666699" TextColor="White" />
+                        <local:FixedButton Text="Показать" HorizontalOptions="FillAndExpand" Command="{Binding ShowCommand}" IsVisible="{Binding IsShowButtonShow}" BackgroundColor="#666699" TextColor="White" />
                     </StackLayout>
                 </ScrollView>
             </Grid>

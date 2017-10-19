@@ -19,7 +19,7 @@
                     <RowDefinition Height="50" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <StackLayout Grid.Column="0" Grid.Row="0" HeightRequest="50" Orientation="Horizontal" BackgroundColor="#333333" Padding="5" Spacing="5">
+                <StackLayout Grid.Column="0" Grid.Row="0" HeightRequest="50" Orientation="Horizontal" BackgroundColor="#666699" Padding="5" Spacing="5">
                     <ffi:CachedImage Source="back.png" VerticalOptions="CenterAndExpand" HorizontalOptions="Start" WidthRequest="40" HeightRequest="40" Aspect="AspectFill">
                         <ffi:CachedImage.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding BackCommand}" />
@@ -59,8 +59,8 @@
                         </StackLayout>
                         <StackLayout HorizontalOptions="FillAndExpand" Spacing="10" Padding="10">
                             <StackLayout Orientation="Horizontal">
-                                <local:FixedButton Text="Выбрать фото" Command="{Binding PickPhotoCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#333333" TextColor="White" />
-                                <local:FixedButton Text="Сделать фото" Command="{Binding MakePhotoCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#333333" TextColor="White" />
+                                <local:FixedButton Text="Выбрать фото" Command="{Binding PickPhotoCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#666699" TextColor="White" />
+                                <local:FixedButton Text="Сделать фото" Command="{Binding MakePhotoCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#666699" TextColor="White" />
                             </StackLayout>
                             <ffi:CachedImage HorizontalOptions="FillAndExpand" DownsampleToViewSize="true" Source="{Binding PhotoSource}" IsVisible="true" Aspect="AspectFit">
                                 <ffi:CachedImage.Triggers>

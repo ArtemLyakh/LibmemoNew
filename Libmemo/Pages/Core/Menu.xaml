@@ -12,7 +12,7 @@
                 <RowDefinition Height="50" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <StackLayout Grid.Column="0" Grid.Row="0" HeightRequest="50" Orientation="Horizontal" BackgroundColor="#333333" Padding="5" Spacing="5">
+            <StackLayout Grid.Column="0" Grid.Row="0" HeightRequest="50" Orientation="Horizontal" BackgroundColor="#666699" Padding="5" Spacing="5">
                 <ffi:CachedImage Source="back.png" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand" WidthRequest="40" HeightRequest="40" Aspect="AspectFill">
                     <ffi:CachedImage.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding BackCommand}" />

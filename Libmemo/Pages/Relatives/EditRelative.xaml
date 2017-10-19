@@ -21,7 +21,7 @@
                     <RowDefinition Height="50" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <StackLayout Grid.Column="0" Grid.Row="0" HeightRequest="50" Orientation="Horizontal" BackgroundColor="#333333" Padding="5" Spacing="5">
+                <StackLayout Grid.Column="0" Grid.Row="0" HeightRequest="50" Orientation="Horizontal" BackgroundColor="#666699" Padding="5" Spacing="5">
                     <ffi:CachedImage Source="back.png" VerticalOptions="CenterAndExpand" HorizontalOptions="Start" WidthRequest="40" HeightRequest="40" Aspect="AspectFill">
                         <ffi:CachedImage.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding BackCommand}" />
@@ -54,7 +54,7 @@
                             <Label Text="Координаты" FontSize="Medium" HorizontalOptions="CenterAndExpand" />
                             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                 <Label Text="{Binding Coordinates}" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" VerticalOptions="CenterAndExpand" />
-                                <local:FixedButton Text="Изменить" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Command="{Binding ShowMap}" BackgroundColor="#333333" TextColor="White" />
+                                <local:FixedButton Text="Изменить" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Command="{Binding ShowMap}" BackgroundColor="#666699" TextColor="White" />
                             </StackLayout>
                         </StackLayout>
                         <StackLayout HorizontalOptions="FillAndExpand" Spacing="10">
@@ -89,9 +89,9 @@
                                         </Grid.RowDefinitions>
                                         <ffi:CachedImage Grid.RowSpan="2" HorizontalOptions="Fill" Source="{Binding PhotoSource}">
                                         </ffi:CachedImage>
-                                        <StackLayout Grid.Row="1" BackgroundColor="#80333333" Spacing="10" Padding="10" Orientation="Horizontal">
-                                            <local:FixedButton Text="Выбрать фото" Command="{Binding PickPhotoCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#333333" TextColor="White" BorderWidth="5" BorderColor="White" />
-                                            <local:FixedButton Text="Сделать фото" Command="{Binding MakePhotoCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#333333" TextColor="White" BorderWidth="5" BorderColor="White" />
+                                        <StackLayout Grid.Row="1" BackgroundColor="#80666699" Spacing="10" Padding="10" Orientation="Horizontal">
+                                            <local:FixedButton Text="Выбрать фото" Command="{Binding PickPhotoCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#666699" TextColor="White" BorderWidth="5" BorderColor="White" />
+                                            <local:FixedButton Text="Сделать фото" Command="{Binding MakePhotoCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#666699" TextColor="White" BorderWidth="5" BorderColor="White" />
                                             <StackLayout HorizontalOptions="Fill" VerticalOptions="CenterAndExpand" IsVisible="{Binding IsDeleteAviliable}" BackgroundColor="White" Padding="3">
                                                 <ffi:CachedImage Source="delete.png" HorizontalOptions="Fill" VerticalOptions="Fill" WidthRequest="40" HeightRequest="40" Aspect="AspectFill" IsVisible="{Binding IsDeleteAviliable}">
                                                     <ffi:CachedImage.GestureRecognizers>
@@ -130,10 +130,10 @@
                             <Label Text="Схема захоронения" HorizontalOptions="CenterAndExpand" FontSize="Large" />
                             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Spacing="10" IsVisible="{Binding IsSchemeCanDownload}">
                                 <Label Text="Схема захоронения:" HorizontalOptions="Fill" VerticalOptions="CenterAndExpand" />
-                                <local:FixedButton Text="Открыть" Command="{Binding SchemeDownloadCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#333333" TextColor="White" />
+                                <local:FixedButton Text="Открыть" Command="{Binding SchemeDownloadCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#666699" TextColor="White" />
                             </StackLayout>
                             <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="FillAndExpand">
-                                <local:FixedButton Text="Выбрать" Command="{Binding SelectSchemeCommand}" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="#333333" TextColor="White" />
+                                <local:FixedButton Text="Выбрать" Command="{Binding SelectSchemeCommand}" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" BackgroundColor="#666699" TextColor="White" />
                                 <Label Text="{Binding SchemeName}" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" />
                             </StackLayout>
                         </StackLayout>
@@ -164,7 +164,7 @@
                             <x:Double>500</x:Double>
                         </x:Arguments>
                     </maps:Map>
-                    <local:FixedButton Grid.Column="0" Grid.Row="2" Text="Закрыть" Margin="5" Command="{Binding HideMap}" BackgroundColor="#333333" TextColor="White" />
+                    <local:FixedButton Grid.Column="0" Grid.Row="2" Text="Закрыть" Margin="5" Command="{Binding HideMap}" BackgroundColor="#666699" TextColor="White" />
                 </Grid>
 
             </StackLayout>

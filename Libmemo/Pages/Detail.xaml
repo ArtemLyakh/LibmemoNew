@@ -13,7 +13,7 @@
                     <RowDefinition Height="50" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <StackLayout Grid.Column="0" Grid.Row="0" HeightRequest="50" Orientation="Horizontal" BackgroundColor="#333333" Padding="5" Spacing="5">
+                <StackLayout Grid.Column="0" Grid.Row="0" HeightRequest="50" Orientation="Horizontal" BackgroundColor="#666699" Padding="5" Spacing="5">
                     <ffi:CachedImage Source="back.png" VerticalOptions="CenterAndExpand" HorizontalOptions="Start" WidthRequest="40" HeightRequest="40" Aspect="AspectFill">
                         <ffi:CachedImage.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding BackCommand}" />
@@ -54,7 +54,7 @@
                         </StackLayout>
                         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Spacing="10" IsVisible="{Binding IsSchemeShow}">
                             <Label Text="Схема захоронения:" HorizontalOptions="Start" VerticalOptions="CenterAndExpand" />
-                            <local:FixedButton Text="Скачать" Command="{Binding SchemeDownloadCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#333333" TextColor="White" />
+                            <local:FixedButton Text="Скачать" Command="{Binding SchemeDownloadCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#666699" TextColor="White" />
                         </StackLayout>
                         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Spacing="10" IsVisible="{Binding IsSectionShow}">
                             <Label Text="Квартал:" HorizontalOptions="StartAndExpand" WidthRequest="100" />
@@ -66,7 +66,7 @@
                         </StackLayout>
                         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Spacing="10" IsVisible="{Binding IsTreeButtonShow}">
                             <Label Text="Древа:" HorizontalOptions="Start" VerticalOptions="CenterAndExpand" />
-                            <local:FixedButton Text="Показать" Command="{Binding TreeShowCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#333333" TextColor="White" />
+                            <local:FixedButton Text="Показать" Command="{Binding TreeShowCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#666699" TextColor="White" />
                         </StackLayout>
                     </StackLayout>
                 </ScrollView>
