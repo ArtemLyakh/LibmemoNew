@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Libmemo.Droid</RootNamespace>
     <AssemblyName>Libmemo.Droid</AssemblyName>
-    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>
@@ -379,6 +379,11 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\admin.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\add.png" />
     <AndroidResource Include="Resources\layout\MapInfoWindow.axml" />
+    <AndroidResource Include="Resources\drawable-mdpi\delete_btn.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\delete_btn.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\delete_btn.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\delete_btn.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\delete_btn.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable-mdpi\" />

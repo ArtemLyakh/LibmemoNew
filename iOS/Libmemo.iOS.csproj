@@ -302,6 +302,9 @@
     <BundleResource Include="Resources\splash_logo.jpg" />
     <BundleResource Include="Resources\splash_logo%402x.jpg" />
     <BundleResource Include="Resources\splash_logo%403x.jpg" />
+    <BundleResource Include="Resources\delete_btn.png" />
+    <BundleResource Include="Resources\delete_btn%402x.png" />
+    <BundleResource Include="Resources\delete_btn%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <ITunesArtwork Include="iTunesArtwork" />

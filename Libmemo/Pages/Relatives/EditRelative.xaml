@@ -93,7 +93,7 @@
                                             <local:FixedButton Text="Выбрать фото" Command="{Binding PickPhotoCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#666699" TextColor="White" BorderWidth="5" BorderColor="White" />
                                             <local:FixedButton Text="Сделать фото" Command="{Binding MakePhotoCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="#666699" TextColor="White" BorderWidth="5" BorderColor="White" />
                                             <StackLayout HorizontalOptions="Fill" VerticalOptions="CenterAndExpand" IsVisible="{Binding IsDeleteAviliable}" BackgroundColor="White" Padding="3">
-                                                <ffi:CachedImage Source="delete.png" HorizontalOptions="Fill" VerticalOptions="Fill" WidthRequest="40" HeightRequest="40" Aspect="AspectFill" IsVisible="{Binding IsDeleteAviliable}">
+                                                <ffi:CachedImage Source="delete_btn.png" HorizontalOptions="Fill" VerticalOptions="Fill" WidthRequest="40" HeightRequest="40" Aspect="AspectFill" IsVisible="{Binding IsDeleteAviliable}">
                                                     <ffi:CachedImage.GestureRecognizers>
                                                         <TapGestureRecognizer Command="{Binding DeletePhotoCommand}" />
                                                     </ffi:CachedImage.GestureRecognizers>
