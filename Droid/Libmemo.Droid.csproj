@@ -384,6 +384,16 @@
     <AndroidResource Include="Resources\drawable-xhdpi\delete_btn.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\delete_btn.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\delete_btn.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\menu_white_map.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\menu_white_map.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\menu_white_map.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\menu_white_map.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\menu_white_map.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\menu_white_human.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\menu_white_human.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\menu_white_human.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\menu_white_human.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\menu_white_human.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable-mdpi\" />

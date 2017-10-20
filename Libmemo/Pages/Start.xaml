@@ -24,42 +24,45 @@
                 <StackLayout.Resources>
                     <ResourceDictionary>
                         <Style x:Key="menu_item" TargetType="StackLayout">
-                            <Setter Property="BackgroundColor" Value="#DEDEDE" />
+                            <Setter Property="BackgroundColor" Value="#666699" />
                             <Setter Property="Orientation" Value="Horizontal" />
                             <Setter Property="Padding" Value="5" />
-                            <Setter Property="HeightRequest" Value="70" />
+                            <Setter Property="HeightRequest" Value="65" />
                             <Setter Property="InputTransparent" Value="False" />
                         </Style>
                         <Style TargetType="ffi:CachedImage">
                             <Setter Property="VerticalOptions" Value="Center" />
                             <Setter Property="HorizontalOptions" Value="Start" />
+                            <Setter Property="HeightRequest" Value="55" />
+                            <Setter Property="Margin" Value="10, 0, 0, 0" />
                         </Style>
                         <Style TargetType="Label">
                             <Setter Property="VerticalOptions" Value="Center" />
                             <Setter Property="HorizontalOptions" Value="FillAndExpand" />
                             <Setter Property="HorizontalTextAlignment" Value="Start" />
-                            <Setter Property="FontSize" Value="Medium" />
-                            <Setter Property="TextColor" Value="Black" />
-                            <Setter Property="Margin" Value="20, 0, 0, 0" />
+                            <Setter Property="FontSize" Value="20" />
+                            <Setter Property="FontAttributes" Value="Bold" />
+                            <Setter Property="TextColor" Value="White" />
+                            <Setter Property="Margin" Value="10, 0, 0, 0" />
                         </Style>
                     </ResourceDictionary>
                 </StackLayout.Resources>
                 <StackLayout Style="{StaticResource menu_item}">
-                    <ffi:CachedImage Source="menu_map" />
+                    <ffi:CachedImage Source="menu_white_map" />
                     <Label Text="Карта" />
                     <StackLayout.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding MapCommand}" />
                     </StackLayout.GestureRecognizers>
                 </StackLayout>
                 <StackLayout Style="{StaticResource menu_item}" IsVisible="{Binding IsShowAuth}">
-                    <ffi:CachedImage Source="menu_login" />
+                    <ffi:CachedImage Source="menu_white_human" />
                     <Label Text="Авторизация" />
                     <StackLayout.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding AuthCommand}" />
                     </StackLayout.GestureRecognizers>
                 </StackLayout>
                 <StackLayout Style="{StaticResource menu_item}" IsVisible="{Binding IsShowAccount}">
-                    <ffi:CachedImage Source="menu_login" />
+                    <ffi:CachedImage Source="menu_white_human" />
                     <Label Text="Личный кабинет" />
                     <StackLayout.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding AccountCommand}" />

@@ -305,6 +305,12 @@
     <BundleResource Include="Resources\delete_btn.png" />
     <BundleResource Include="Resources\delete_btn%402x.png" />
     <BundleResource Include="Resources\delete_btn%403x.png" />
+    <BundleResource Include="Resources\menu_white_map.png" />
+    <BundleResource Include="Resources\menu_white_map%402x.png" />
+    <BundleResource Include="Resources\menu_white_map%403x.png" />
+    <BundleResource Include="Resources\menu_white_human.png" />
+    <BundleResource Include="Resources\menu_white_human%402x.png" />
+    <BundleResource Include="Resources\menu_white_human%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <ITunesArtwork Include="iTunesArtwork" />
