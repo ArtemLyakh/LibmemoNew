@@ -24,7 +24,7 @@
                 <StackLayout.Resources>
                     <ResourceDictionary>
                         <Style x:Key="menu_item" TargetType="StackLayout">
-                            <Setter Property="BackgroundColor" Value="#F0F0F0" />
+                            <Setter Property="BackgroundColor" Value="#DEDEDE" />
                             <Setter Property="Orientation" Value="Horizontal" />
                             <Setter Property="Padding" Value="5" />
                             <Setter Property="HeightRequest" Value="70" />
